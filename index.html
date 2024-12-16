@@ -1,0 +1,4982 @@
+<!DOCTYPE html>
+<html lang="en-US" data-scrapbook-source="https://bridge.pudgypenguins.com/" data-scrapbook-create="20241216130859901">
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  <script charset="UTF-8" type="text/javascript" src="cd45e971-5aa0-432c-bf35-1e8b23ddd276.js"></script>
+
+
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Lil Pudgys Bridge</title>
+  <meta name="next-head-count" content="3">
+  <link rel="shortcut icon" href="logo.svg">
+  <link rel="stylesheet" href="f78ed12d1771086e.css" data-n-g=""><noscript data-n-css=""></noscript>
+  <style data-href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&amp;display=swap">
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("") format('woff')
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("") format('woff')
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("") format('woff')
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0370-03FF
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0370-03FF
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0370-03FF
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("") format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
+    }
+  </style>
+  <style data-href="https://use.typekit.net/jvq1xtc.css">
+    @import url("p.css");
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 800;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 600;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 700;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 200;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 900;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 300;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 500;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 100;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk-compressed";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk-compressed";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 700;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk-condensed";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk-condensed";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 700;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk-extrawide";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk-extrawide";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 700;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk-wide";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: normal
+    }
+
+    @font-face {
+      font-family: "roc-grotesk-wide";
+      src: url("") format("woff2"), url("") format("woff"), url("") format("opentype");
+      font-display: auto;
+      font-style: normal;
+      font-weight: 700;
+      font-stretch: normal
+    }
+
+    .tk-roc-grotesk {
+      font-family: "roc-grotesk", sans-serif
+    }
+
+    .tk-roc-grotesk-compressed {
+      font-family: "roc-grotesk-compressed", sans-serif
+    }
+
+    .tk-roc-grotesk-condensed {
+      font-family: "roc-grotesk-condensed", sans-serif
+    }
+
+    .tk-roc-grotesk-extrawide {
+      font-family: "roc-grotesk-extrawide", sans-serif
+    }
+
+    .tk-roc-grotesk-wide {
+      font-family: "roc-grotesk-wide", sans-serif
+    }
+  </style>
+  <style data-emotion="css-global" data-s="">
+    :root {
+      --toastify-z-index: 100;
+      --toastify-color-progress-light: #000000;
+    }
+
+    .Toastify .Toastify__toast {
+      background-color: #F5F5F5;
+      min-height: 72px;
+      border: 2px solid black;
+      border-radius: 5px;
+      box-shadow: none;
+    }
+
+    .Toastify .Toastify__toast-body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .Toastify .Toastify__toast-container h1 {
+      letter-spacing: -0.02em;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      color: #000000;
+      font-family: "Roboto Mono", monospace;
+    }
+
+    .Toastify .Toastify__toast-container p {
+      color: #999999;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      margin-top: 4px;
+      line-break: anywhere;
+    }
+
+    .Toastify .Toastify__toast-container a {
+      -webkit-text-decoration: underline;
+      text-decoration: underline;
+    }
+
+    .Toastify .Toastify__toast-icon {
+      margin-bottom: auto;
+      margin-top: 2px;
+    }
+
+    .Toastify .Toastify__toast-container {
+      width: 432px;
+      max-width: 100%;
+      margin-top: 80px;
+    }
+  </style>
+  <style data-emotion="css 17fgyse" data-s="">
+    .css-17fgyse {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .css-17fgyse:before {
+      content: url("mountains.png");
+      position: fixed;
+      transform-origin: bottom left;
+      bottom: -3px;
+      left: 0;
+    }
+
+    .css-17fgyse:after {
+      content: url("mountains.png");
+      position: fixed;
+      transform-origin: bottom left;
+      -webkit-transform: scale(-1, 1) translateX(-100%);
+      -moz-transform: scale(-1, 1) translateX(-100%);
+      -ms-transform: scale(-1, 1) translateX(-100%);
+      transform: scale(-1, 1) translateX(-100%);
+      bottom: -3px;
+      right: 0;
+      z-index: -1;
+    }
+  </style>
+  <style data-emotion="css 5s0io5" data-s="">
+    .css-5s0io5 {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding: 0 16px;
+      min-height: 56px;
+      background: #ffffff;
+    }
+
+    @media (min-width:900px) {
+      .css-5s0io5 {
+        padding: 0 46px;
+        min-height: 86px;
+      }
+    }
+
+    @media (min-width:0px) {
+      .css-5s0io5 {
+        -webkit-flex-direction: row-reverse;
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+      }
+    }
+
+    @media (min-width:900px) {
+      .css-5s0io5 {
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+      }
+    }
+  </style>
+  <style data-emotion="css 1fe1faz" data-s="">
+    .css-1fe1faz {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding: 0 16px;
+      min-height: 56px;
+      background: #ffffff;
+    }
+
+    @media (min-width:900px) {
+      .css-1fe1faz {
+        padding: 0 46px;
+        min-height: 86px;
+      }
+    }
+
+    @media (min-width:0px) {
+      .css-1fe1faz {
+        -webkit-flex-direction: row-reverse;
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+      }
+    }
+
+    @media (min-width:900px) {
+      .css-1fe1faz {
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+      }
+    }
+  </style>
+  <style data-emotion="css gosnuy" data-s="">
+    .css-gosnuy {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      -webkit-flex-basis: 0;
+      -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    .css-gosnuy>:not(style)+:not(style) {
+      margin: 0;
+      margin-left: 12px;
+    }
+
+    @media (min-width:0px) {
+      .css-gosnuy {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+      }
+    }
+
+    @media (min-width:900px) {
+      .css-gosnuy {
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+  <style data-emotion="css 4nzupk" data-s="">
+    .css-4nzupk {
+      width: 79px;
+      height: 32px;
+      font-size: 20px;
+      padding: 0;
+    }
+
+    @media (min-width:900px) {
+      .css-4nzupk {
+        width: auto;
+        height: auto;
+        padding: 8px 30px;
+        font-size: 32px;
+      }
+    }
+  </style>
+  <style data-emotion="css h0t6vw" data-s="">
+    .css-h0t6vw {
+      letter-spacing: -0.026em;
+      text-transform: uppercase;
+      border: 2px solid #000;
+      border-radius: 5px;
+      padding: 3px 22px;
+      font-family: TTTrailers-Black, serif;
+      font-size: 32px;
+      height: 50px;
+      -webkit-transform: translate3d(0px, 0px, 0px);
+      -moz-transform: translate3d(0px, 0px, 0px);
+      -ms-transform: translate3d(0px, 0px, 0px);
+      transform: translate3d(0px, 0px, 0px);
+      line-height: 30px;
+      font-weight: 800;
+      color: #f5fdff;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      position: relative;
+      -webkit-transition: color .3s cubic-bezier(.445, .05, .55, .95) 0s;
+      transition: color .3s cubic-bezier(.445, .05, .55, .95) 0s;
+      background: #80abff;
+      cursor: pointer;
+      overflow: hidden;
+      --hover-back: #ffa3ff;
+      --hover-front: #00142d;
+      width: 79px;
+      height: 32px;
+      font-size: 20px;
+      padding: 0;
+    }
+
+    .css-h0t6vw:disabled {
+      opacity: 0.4;
+      cursor: auto;
+    }
+
+    @media (min-width:900px) {
+      .css-h0t6vw:hover:not(:disabled) {
+        color: #c5fcff;
+      }
+
+      .css-h0t6vw:hover:not(:disabled)::before {
+        --y: 0;
+        --br: 0;
+        --d-d: 0s;
+      }
+
+      .css-h0t6vw:hover:not(:disabled):after {
+        --br: 0;
+        --d-d: .02s;
+        --y: 0;
+      }
+
+      .css-h0t6vw:hover:not(:disabled) span {
+        -webkit-transform: scale(.975) translateZ(0);
+        -moz-transform: scale(.975) translateZ(0);
+        -ms-transform: scale(.975) translateZ(0);
+        transform: scale(.975) translateZ(0);
+      }
+    }
+
+    .css-h0t6vw::before,
+    .css-h0t6vw::after {
+      content: "";
+      position: absolute;
+      background: var(--pb, var(--hover-back));
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 200%;
+      border-radius: var(--br, 40%);
+      -webkit-transform: translateY(var(--y, 50%));
+      -moz-transform: translateY(var(--y, 50%));
+      -ms-transform: translateY(var(--y, 50%));
+      transform: translateY(var(--y, 50%));
+      -webkit-transition: -webkit-transform var(--d, .35s) cubic-bezier(.445, .05, .55, .95) var(--d-d, 0s), border-radius .45s cubic-bezier(.445, .05, .55, .95) var(--br-d, .08s), -webkit-transform var(--d, .35s) cubic-bezier(.445, .05, .55, .95) var(--d-d, 0s);
+      transition: transform var(--d, .35s) cubic-bezier(.445, .05, .55, .95) var(--d-d, 0s), border-radius .45s cubic-bezier(.445, .05, .55, .95) var(--br-d, .08s), -webkit-transform var(--d, .35s) cubic-bezier(.445, .05, .55, .95) var(--d-d, 0s);
+    }
+
+    .css-h0t6vw::before {
+      --d-d: .06s;
+    }
+
+    .css-h0t6vw::after {
+      --pb: var(--hover-front);
+      --d: .39s;
+    }
+
+    .css-h0t6vw span {
+      z-index: 3;
+      position: relative;
+      -webkit-transform: scale(1) translateZ(0);
+      -moz-transform: scale(1) translateZ(0);
+      -ms-transform: scale(1) translateZ(0);
+      transform: scale(1) translateZ(0);
+      -webkit-transition: -webkit-transform .3s cubic-bezier(.39, .575, .565, 1), -webkit-transform .3s cubic-bezier(.39, .575, .565, 1);
+      transition: transform .3s cubic-bezier(.39, .575, .565, 1), -webkit-transform .3s cubic-bezier(.39, .575, .565, 1);
+      display: block;
+    }
+
+    @media (min-width:900px) {
+      .css-h0t6vw {
+        width: auto;
+        height: auto;
+        padding: 8px 30px;
+        font-size: 32px;
+      }
+    }
+  </style>
+  <style data-emotion="css 5cx6to" data-s="">
+    .css-5cx6to {
+      -webkit-flex: 0;
+      -ms-flex: 0;
+      flex: 0;
+      -webkit-flex-basis: 58px;
+      -ms-flex-preferred-size: 58px;
+      flex-basis: 58px;
+    }
+  </style>
+  <style data-emotion="css 1txjm15" data-s="">
+    .css-1txjm15 {
+      display: none;
+    }
+
+    @media (min-width:900px) {
+      .css-1txjm15 {
+        display: block;
+      }
+    }
+  </style>
+  <style data-emotion="css 130kh19" data-s="">
+    .css-130kh19 {
+      display: block;
+    }
+
+    @media (min-width:900px) {
+      .css-130kh19 {
+        display: none;
+      }
+    }
+  </style>
+  <style data-emotion="css pjvi81" data-s="">
+    .css-pjvi81 {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      -webkit-flex-basis: 0;
+      -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      -webkit-justify-content: flex-end;
+      justify-content: flex-end;
+    }
+
+    .css-pjvi81>:not(style)+:not(style) {
+      margin: 0;
+      margin-left: 16px;
+    }
+
+    @media (min-width:0px) {
+      .css-pjvi81 {
+        display: none;
+      }
+    }
+
+    @media (min-width:900px) {
+      .css-pjvi81 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+    }
+  </style>
+  <style data-emotion="css 1rr4qq7" data-s="">
+    .css-1rr4qq7 {
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+    }
+  </style>
+  <style data-emotion="css i6bazn" data-s="">
+    .css-i6bazn {
+      overflow: hidden;
+    }
+  </style>
+  <style data-emotion="css naa195" data-s="">
+    .css-naa195 {
+      overflow: hidden;
+    }
+  </style>
+  <style data-emotion="css yts20e" data-s="">
+    .css-yts20e {
+      height: 100%;
+      position: relative;
+      min-height: 688px;
+      padding-top: 40px;
+      max-width: 1440px;
+      margin: auto;
+      overflow: visible;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    @media (min-width:900px) {
+      .css-yts20e {
+        padding-top: 30px;
+        padding-bottom: 50px;
+        padding-left: 0;
+        padding-right: 0;
+        display: grid;
+        place-items: center;
+        min-height: 850px;
+      }
+    }
+  </style>
+  <style data-emotion="css gcfscc" data-s="">
+    .css-gcfscc {
+      height: 100%;
+      position: relative;
+      min-height: 688px;
+      padding-top: 40px;
+      max-width: 1440px;
+      margin: auto;
+      overflow: visible;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    @media (min-width:900px) {
+      .css-gcfscc {
+        padding-top: 30px;
+        padding-bottom: 50px;
+        padding-left: 0;
+        padding-right: 0;
+        display: grid;
+        place-items: center;
+        min-height: 850px;
+      }
+    }
+  </style>
+  <style data-emotion="css k3p897" data-s="">
+    .css-k3p897 {
+      display: none;
+    }
+
+    @media (min-width:900px) {
+      .css-k3p897 {
+        display: contents;
+      }
+    }
+  </style>
+  <style data-emotion="css 1xte2lw" data-s="">
+    .css-1xte2lw {
+      position: absolute;
+      z-index: 1000;
+      -webkit-transform: rotate(-13deg) scale(0.47);
+      -moz-transform: rotate(-13deg) scale(0.47);
+      -ms-transform: rotate(-13deg) scale(0.47);
+      transform: rotate(-13deg) scale(0.47);
+      bottom: 0;
+      margin-bottom: -52px;
+      left: -22%;
+    }
+
+    @media (min-width:900px) {
+      .css-1xte2lw {
+        -webkit-transform: rotate(-13deg);
+        -moz-transform: rotate(-13deg);
+        -ms-transform: rotate(-13deg);
+        transform: rotate(-13deg);
+        left: -2%;
+        bottom: auto;
+        margin-bottom: 0;
+      }
+    }
+  </style>
+  <style data-emotion="css 7wfhdo" data-s="">
+    .css-7wfhdo {
+      background: #4583F4;
+      border: 2px solid #000000;
+      border-radius: 12px;
+      width: 318px;
+      height: 404px;
+      position: relative;
+      -webkit-transition: all;
+      transition: all;
+      transition-duration: .2s;
+      position: absolute;
+      z-index: 1000;
+      -webkit-transform: rotate(-13deg) scale(0.47);
+      -moz-transform: rotate(-13deg) scale(0.47);
+      -ms-transform: rotate(-13deg) scale(0.47);
+      transform: rotate(-13deg) scale(0.47);
+      bottom: 0;
+      margin-bottom: -52px;
+      left: -22%;
+    }
+
+    @media (min-width:900px) {
+      .css-7wfhdo:hover {
+        -webkit-transform: translateY(-16px);
+        -moz-transform: translateY(-16px);
+        -ms-transform: translateY(-16px);
+        transform: translateY(-16px);
+      }
+    }
+
+    @media (min-width:900px) {
+      .css-7wfhdo {
+        -webkit-transform: rotate(-13deg);
+        -moz-transform: rotate(-13deg);
+        -ms-transform: rotate(-13deg);
+        transform: rotate(-13deg);
+        left: -2%;
+        bottom: auto;
+        margin-bottom: 0;
+      }
+    }
+  </style>
+  <style data-emotion="css 1zn8ck" data-s="">
+    .css-1zn8ck {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      background: #ffffff;
+      width: 318px;
+      height: 404px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid #000;
+      cursor: pointer;
+      -webkit-transform: translateX(-2px) translateY(-10px);
+      -moz-transform: translateX(-2px) translateY(-10px);
+      -ms-transform: translateX(-2px) translateY(-10px);
+      transform: translateX(-2px) translateY(-10px);
+    }
+  </style>
+  <style data-emotion="css ltrwlp" data-s="">
+    .css-ltrwlp {
+      height: 312px;
+      border-bottom: 3px solid #000;
+      -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+      flex-shrink: 0;
+      background: pink;
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+  <style data-emotion="css 1buqqr7" data-s="">
+    .css-1buqqr7 {
+      height: 312px;
+      border-bottom: 3px solid #000;
+      -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+      flex-shrink: 0;
+      background: pink;
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+  <style data-emotion="css 849fm3" data-s="">
+    .css-849fm3 {
+      padding: 0 22px;
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      position: relative;
+      z-index: 3;
+      background-color: #fff;
+      border-radius: 0 0 13px 13px;
+    }
+  </style>
+  <style data-emotion="css 1bb182b" data-s="">
+    .css-1bb182b {
+      padding: 0 22px;
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      position: relative;
+      z-index: 3;
+      background-color: #fff;
+      border-radius: 0 0 13px 13px;
+    }
+  </style>
+  <style data-emotion="css h6iiri" data-s="">
+    .css-h6iiri {
+      font-family: TTTrailers-Black, serif;
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    @media (min-width:900px) {
+      .css-h6iiri {
+        letter-spacing: -0.026em;
+        font-weight: 800;
+      }
+    }
+  </style>
+  <style data-emotion="css 13zvfk5" data-s="">
+    .css-13zvfk5 {
+      font-family: TTTrailers-Black, serif;
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    @media (min-width:900px) {
+      .css-13zvfk5 {
+        letter-spacing: -0.026em;
+        font-weight: 800;
+      }
+    }
+  </style>
+  <style data-emotion="css 1r5c8pb" data-s="">
+    .css-1r5c8pb {
+      font-family: Menco-Medium;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      color: #ACACAC;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+  </style>
+  <style data-emotion="css 1sngcwt" data-s="">
+    .css-1sngcwt {
+      font-family: Menco-Medium;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      color: #ACACAC;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+  </style>
+  <style data-emotion="css 1wgeoa1" data-s="">
+    .css-1wgeoa1 {
+      border-radius: 12px;
+      border: 2px solid #000;
+    }
+  </style>
+  <style data-emotion="css lvo55n" data-s="">
+    .css-lvo55n {
+      position: absolute;
+      z-index: 1000;
+      -webkit-transform: rotate(13deg) scale(0.47);
+      -moz-transform: rotate(13deg) scale(0.47);
+      -ms-transform: rotate(13deg) scale(0.47);
+      transform: rotate(13deg) scale(0.47);
+      bottom: 0;
+      margin-bottom: -52px;
+      right: -22%;
+    }
+
+    @media (min-width:900px) {
+      .css-lvo55n {
+        -webkit-transform: rotate(13deg);
+        -moz-transform: rotate(13deg);
+        -ms-transform: rotate(13deg);
+        transform: rotate(13deg);
+        right: -2%;
+        bottom: auto;
+        margin-bottom: 0;
+      }
+    }
+  </style>
+  <style data-emotion="css 1n6mll9" data-s="">
+    .css-1n6mll9 {
+      background: #4583F4;
+      border: 2px solid #000000;
+      border-radius: 12px;
+      width: 318px;
+      height: 404px;
+      position: relative;
+      -webkit-transition: all;
+      transition: all;
+      transition-duration: .2s;
+      position: absolute;
+      z-index: 1000;
+      -webkit-transform: rotate(13deg) scale(0.47);
+      -moz-transform: rotate(13deg) scale(0.47);
+      -ms-transform: rotate(13deg) scale(0.47);
+      transform: rotate(13deg) scale(0.47);
+      bottom: 0;
+      margin-bottom: -52px;
+      right: -22%;
+    }
+
+    @media (min-width:900px) {
+      .css-1n6mll9:hover {
+        -webkit-transform: translateY(-16px);
+        -moz-transform: translateY(-16px);
+        -ms-transform: translateY(-16px);
+        transform: translateY(-16px);
+      }
+    }
+
+    @media (min-width:900px) {
+      .css-1n6mll9 {
+        -webkit-transform: rotate(13deg);
+        -moz-transform: rotate(13deg);
+        -ms-transform: rotate(13deg);
+        transform: rotate(13deg);
+        right: -2%;
+        bottom: auto;
+        margin-bottom: 0;
+      }
+    }
+  </style>
+  <style data-emotion="css 11jryuv" data-s="">
+    .css-11jryuv {
+      max-width: 660px;
+      text-align: center;
+      margin: auto;
+    }
+  </style>
+  <style data-emotion="css 19aami3" data-s="">
+    .css-19aami3 {
+      max-width: 660px;
+      text-align: center;
+      margin: auto;
+    }
+  </style>
+  <style data-emotion="css 1i7088w" data-s="">
+    .css-1i7088w {
+      font-family: TTTrailers-Black, serif;
+      letter-spacing: -0.026em;
+      font-size: 44px;
+      color: white;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, -4px 4px black;
+      line-height: 92%;
+    }
+
+    @media (min-width:900px) {
+      .css-1i7088w {
+        font-size: 80px;
+      }
+    }
+  </style>
+  <style data-emotion="css 10zry0f" data-s="">
+    .css-10zry0f {
+      font-family: Menco-Bold;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+      color: #fff;
+      text-transform: uppercase;
+      margin-top: 24px;
+      margin-bottom: 32px;
+    }
+  </style>
+  <style data-emotion="css 3zmzj4" data-s="">
+    .css-3zmzj4 {
+      font-family: Menco-Bold;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+      color: #fff;
+      text-transform: uppercase;
+      margin-top: 24px;
+      margin-bottom: 32px;
+    }
+  </style>
+  <style data-emotion="css 128j4av" data-s="">
+    .css-128j4av {
+      letter-spacing: -0.026em;
+      display: inline-block;
+      border-style: solid;
+      border-width: 2px;
+      border-color: #ffffff;
+      border-radius: 5px;
+      background-color: #fff;
+      -webkit-transition: all 200ms ease;
+      -webkit-transition: all 200ms ease;
+      transition: all 200ms ease;
+      font-family: TTTrailers-Black, serif;
+      font-weight: 600;
+      text-align: center;
+      font-size: 32px;
+      line-height: 30px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      cursor: pointer;
+      opacity: 1;
+      font-size: 40px;
+      width: 251px;
+      height: 60px;
+      padding: 0px;
+      background-color: #00142D;
+    }
+
+    .css-128j4av span {
+      color: #ffffff;
+      display: block;
+      -webkit-transform: scale(1) translateZ(0);
+      -moz-transform: scale(1) translateZ(0);
+      -ms-transform: scale(1) translateZ(0);
+      transform: scale(1) translateZ(0);
+      -webkit-transition: -webkit-transform .3s cubic-bezier(.39, .575, .565, 1), -webkit-transform .3s cubic-bezier(.39, .575, .565, 1);
+      transition: transform .3s cubic-bezier(.39, .575, .565, 1), -webkit-transform .3s cubic-bezier(.39, .575, .565, 1);
+    }
+
+    @media (min-width:900px) {
+      .css-128j4av:hover span {
+        -webkit-transform: scale(.975) translateZ(0);
+        -moz-transform: scale(.975) translateZ(0);
+        -ms-transform: scale(.975) translateZ(0);
+        transform: scale(.975) translateZ(0);
+      }
+    }
+  </style>
+  <style data-emotion="css x11zji" data-s="">
+    .css-x11zji {
+      font-family: Menco-Bold;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 24px;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-top: 16px;
+    }
+  </style>
+  <style data-emotion="css 15xjsn4" data-s="">
+    .css-15xjsn4 {
+      font-family: Menco-Bold;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 24px;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-top: 16px;
+    }
+  </style>
+  <style data-emotion="css 1btvbh6" data-s="">
+    .css-1btvbh6 {
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      margin-bottom: 24px;
+      z-index: 1;
+      padding-bottom: 12px;
+    }
+
+    @media (min-width:0px) {
+      .css-1btvbh6 {
+        margin-top: 26px;
+      }
+    }
+
+    @media (min-width:900px) {
+      .css-1btvbh6 {
+        margin-top: 30px;
+      }
+    }
+  </style>
+  <style data-emotion="css 1nw094b" data-s="">
+    .css-1nw094b {
+      width: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      color: #000000;
+      -webkit-box-flex-wrap: wrap;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 24px;
+      padding-bottom: 24px;
+      padding-left: 16px;
+      padding-right: 16px;
+      max-width: 1440px;
+      margin: 0 auto;
+      row-gap: 16px;
+      background: #fff;
+      position: relative;
+      z-index: 3;
+      height: 56px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+
+    @media (min-width:900px) {
+      .css-1nw094b {
+        padding-left: 48px;
+        padding-right: 48px;
+      }
+    }
+  </style>
+  <style data-emotion="css djbmwo" data-s="">
+    .css-djbmwo {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-flex-wrap: wrap;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-column-gap: 16px;
+      column-gap: 16px;
+      row-gap: 8px;
+    }
+  </style>
+  <style data-emotion="css og2pyr" data-s="">
+    .css-og2pyr {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      -webkit-flex-basis: 0;
+      -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      -webkit-justify-content: flex-end;
+      justify-content: flex-end;
+    }
+
+    .css-og2pyr>:not(style)+:not(style) {
+      margin: 0;
+      margin-left: 16px;
+    }
+
+    @media (min-width:0px) {
+      .css-og2pyr {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+    }
+
+    @media (min-width:900px) {
+      .css-og2pyr {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+    }
+  </style>
+  <style data-emotion="css 16q5i38" data-s="">
+    .css-16q5i38 {
+      letter-spacing: -0.026em;
+      text-transform: uppercase;
+      border: 2px solid #000;
+      border-radius: 5px;
+      padding: 3px 22px;
+      font-family: TTTrailers-Black, serif;
+      font-size: 32px;
+      height: 50px;
+      -webkit-transform: translate3d(0px, 0px, 0px);
+      -moz-transform: translate3d(0px, 0px, 0px);
+      -ms-transform: translate3d(0px, 0px, 0px);
+      transform: translate3d(0px, 0px, 0px);
+      line-height: 30px;
+      font-weight: 800;
+      color: #f5fdff;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      position: relative;
+      -webkit-transition: color .3s cubic-bezier(.445, .05, .55, .95) 0s;
+      transition: color .3s cubic-bezier(.445, .05, .55, .95) 0s;
+      background: #80abff;
+      cursor: pointer;
+      overflow: hidden;
+      --hover-back: #ffa3ff;
+      --hover-front: #00142d;
+      width: 132px;
+      height: 32px;
+      font-size: 20px;
+      padding: 0px;
+    }
+
+    .css-16q5i38:disabled {
+      opacity: 0.4;
+      cursor: auto;
+    }
+
+    @media (min-width:900px) {
+      .css-16q5i38:hover:not(:disabled) {
+        color: #c5fcff;
+      }
+
+      .css-16q5i38:hover:not(:disabled)::before {
+        --y: 0;
+        --br: 0;
+        --d-d: 0s;
+      }
+
+      .css-16q5i38:hover:not(:disabled):after {
+        --br: 0;
+        --d-d: .02s;
+        --y: 0;
+      }
+
+      .css-16q5i38:hover:not(:disabled) span {
+        -webkit-transform: scale(.975) translateZ(0);
+        -moz-transform: scale(.975) translateZ(0);
+        -ms-transform: scale(.975) translateZ(0);
+        transform: scale(.975) translateZ(0);
+      }
+    }
+
+    .css-16q5i38::before,
+    .css-16q5i38::after {
+      content: "";
+      position: absolute;
+      background: var(--pb, var(--hover-back));
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 200%;
+      border-radius: var(--br, 40%);
+      -webkit-transform: translateY(var(--y, 50%));
+      -moz-transform: translateY(var(--y, 50%));
+      -ms-transform: translateY(var(--y, 50%));
+      transform: translateY(var(--y, 50%));
+      -webkit-transition: -webkit-transform var(--d, .35s) cubic-bezier(.445, .05, .55, .95) var(--d-d, 0s), border-radius .45s cubic-bezier(.445, .05, .55, .95) var(--br-d, .08s), -webkit-transform var(--d, .35s) cubic-bezier(.445, .05, .55, .95) var(--d-d, 0s);
+      transition: transform var(--d, .35s) cubic-bezier(.445, .05, .55, .95) var(--d-d, 0s), border-radius .45s cubic-bezier(.445, .05, .55, .95) var(--br-d, .08s), -webkit-transform var(--d, .35s) cubic-bezier(.445, .05, .55, .95) var(--d-d, 0s);
+    }
+
+    .css-16q5i38::before {
+      --d-d: .06s;
+    }
+
+    .css-16q5i38::after {
+      --pb: var(--hover-front);
+      --d: .39s;
+    }
+
+    .css-16q5i38 span {
+      z-index: 3;
+      position: relative;
+      -webkit-transform: scale(1) translateZ(0);
+      -moz-transform: scale(1) translateZ(0);
+      -ms-transform: scale(1) translateZ(0);
+      transform: scale(1) translateZ(0);
+      -webkit-transition: -webkit-transform .3s cubic-bezier(.39, .575, .565, 1), -webkit-transform .3s cubic-bezier(.39, .575, .565, 1);
+      transition: transform .3s cubic-bezier(.39, .575, .565, 1), -webkit-transform .3s cubic-bezier(.39, .575, .565, 1);
+      display: block;
+    }
+  </style>
+  <script
+    data-scrapbook-elem="custom-elements-loader">(function (names) { if (!customElements) { return; } for (const name of names) { customElements.define(name, class CustomElement extends HTMLElement { }); } })(["onboard-v2", "next-route-announcer"])</script>
+</head>
+
+<body>
+  <div id="__next" data-reactroot="">
+    <div class="css-17fgyse">
+      <div class="MuiBox-root css-1fe1faz">
+        <div class="MuiStack-root css-gosnuy"><button type="button" class="css-h0t6vw"><span>Home</span></button><button
+            type="button" class="css-h0t6vw"><span>Bridge</span></button></div>
+        <div class="MuiBox-root css-5cx6to"><a href="">
+            <div class="css-1txjm15"><img src="logo.svg" width="58" height="51" alt="logo"></div>
+            <div class="css-130kh19"><img src="logo.svg" width="36" height="32" alt="logo"></div>
+          </a></div>
+        <div class="MuiStack-root css-pjvi81"><button type="button" class="css-h0t6vw"><span>Connect
+              Wallet</span></button></div>
+      </div>
+      <div class="css-1rr4qq7">
+        <div class="MuiBox-root css-naa195">
+          <div class="MuiBox-root css-gcfscc">
+            <div display="contents" class="css-k3p897"><img src="home-arrow.svg" width="60%" alt="home arrow"></div>
+            <div style="pointer-events:none" class="css-7wfhdo">
+              <div class="css-1zn8ck">
+                <div class="MuiBox-root css-1buqqr7"><img src="2137.png" alt="placeholder"></div>
+                <div class="MuiBox-root css-1bb182b">
+                  <div class="MuiBox-root css-0">
+                    <div class="MuiBox-root css-13zvfk5">LIL PUDGY #
+                      <!-- -->2137
+                    </div>
+                    <div class="MuiBox-root css-1sngcwt">Ethereum</div>
+                  </div><img src="ethereum.svg" width="48" height="48" alt="Network logo" class="css-1wgeoa1">
+                </div>
+              </div>
+            </div>
+            <div style="pointer-events:none" class="css-1n6mll9">
+              <div class="css-1zn8ck">
+                <div class="MuiBox-root css-1buqqr7"><img src="2137.png" alt="placeholder"></div>
+                <div class="MuiBox-root css-1bb182b">
+                  <div class="MuiBox-root css-0">
+                    <div class="MuiBox-root css-13zvfk5">LIL PUDGY #
+                      <!-- -->2137
+                    </div>
+                    <div class="MuiBox-root css-1sngcwt">Polygon</div>
+                  </div><img src="polygon.svg" width="48" height="48" alt="Network logo" class="css-1wgeoa1">
+                </div>
+              </div>
+            </div>
+            <div class="MuiBox-root css-19aami3">
+              <h1 class="css-1i7088w">TRANSFER YOUR LIL<br>PUDGY EVERYWHERE !</h1>
+              <div class="MuiBox-root css-3zmzj4">Small in stature but big in personality, Lil Pudgys are now available
+                seamlessly across multiple blockchains. Connect your wallet now to transfer your Lil Pudgy using the
+                LayerZero ONFT Standard.</div><button type="button" color="#ffffff" class="css-128j4av"><span>Connect
+                  wallet</span></button>
+              <div class="MuiBox-root css-15xjsn4">Connect your wallet to transfer ONFT</div>
+            </div>
+            <div display="contents" class="css-k3p897"><img src="home-arrow.svg" style="transform:rotate(180deg)"
+                width="55%" alt="home arrow"></div>
+          </div>
+        </div>
+      </div>
+      <div class="MuiBox-root css-1btvbh6"><a href="https://layerzero.network/" target="_blank" style="cursor:pointer"
+          rel="noreferrer"><img src="layerZero.svg" width="138" height="21" alt="Powered by LayerZero"></a></div>
+      <div class="css-130kh19">
+        <div class="css-1nw094b">
+          <div class="css-djbmwo">
+            <div class="MuiStack-root css-og2pyr"><button type="button" class="css-16q5i38"><span>Connect
+                  Wallet</span></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="Toastify"></div>
+  </div>
+  <div id="embedim--snow">
+    <style>
+      #embedim--snow {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 9999999;
+        pointer-events: none
+      }
+
+      .embedim-snow {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: white;
+        border-radius: 50%;
+        margin-top: -10px
+      }
+
+      .embedim-snow:nth-child(1) {
+        opacity: 0.09;
+        transform: translate(39.73vw, -10px) scale(0.17);
+        animation: fall-1 24s -24s linear infinite
+      }
+
+      @keyframes fall-1 {
+        80.00% {
+          transform: translate(37.47vw, 80.00vh) scale(0.17)
+        }
+
+        to {
+          transform: translate(38.60vw, 105vh) scale(0.17)
+        }
+      }
+
+      .embedim-snow:nth-child(2) {
+        opacity: 0.48;
+        transform: translate(26.92vw, -10px) scale(0.74);
+        animation: fall-2 17s -6s linear infinite
+      }
+
+      @keyframes fall-2 {
+        30.00% {
+          transform: translate(19.91vw, 30.00vh) scale(0.74)
+        }
+
+        to {
+          transform: translate(23.41vw, 105vh) scale(0.74)
+        }
+      }
+
+      .embedim-snow:nth-child(3) {
+        opacity: 0.28;
+        transform: translate(40.67vw, -10px) scale(0.62);
+        animation: fall-3 12s -10s linear infinite
+      }
+
+      @keyframes fall-3 {
+        60.00% {
+          transform: translate(44.27vw, 60.00vh) scale(0.62)
+        }
+
+        to {
+          transform: translate(42.47vw, 105vh) scale(0.62)
+        }
+      }
+
+      .embedim-snow:nth-child(4) {
+        opacity: 0.40;
+        transform: translate(64.03vw, -10px) scale(0.68);
+        animation: fall-4 21s -13s linear infinite
+      }
+
+      @keyframes fall-4 {
+        60.00% {
+          transform: translate(66.68vw, 60.00vh) scale(0.68)
+        }
+
+        to {
+          transform: translate(65.36vw, 105vh) scale(0.68)
+        }
+      }
+
+      .embedim-snow:nth-child(5) {
+        opacity: 0.49;
+        transform: translate(96.06vw, -10px) scale(0.22);
+        animation: fall-5 20s -29s linear infinite
+      }
+
+      @keyframes fall-5 {
+        70.00% {
+          transform: translate(95.77vw, 70.00vh) scale(0.22)
+        }
+
+        to {
+          transform: translate(95.92vw, 105vh) scale(0.22)
+        }
+      }
+
+      .embedim-snow:nth-child(6) {
+        opacity: 0.39;
+        transform: translate(10.53vw, -10px) scale(0.13);
+        animation: fall-6 12s -14s linear infinite
+      }
+
+      @keyframes fall-6 {
+        50.00% {
+          transform: translate(7.97vw, 50.00vh) scale(0.13)
+        }
+
+        to {
+          transform: translate(9.25vw, 105vh) scale(0.13)
+        }
+      }
+
+      .embedim-snow:nth-child(7) {
+        opacity: 0.67;
+        transform: translate(9.35vw, -10px) scale(0.86);
+        animation: fall-7 19s -25s linear infinite
+      }
+
+      @keyframes fall-7 {
+        40.00% {
+          transform: translate(1.10vw, 40.00vh) scale(0.86)
+        }
+
+        to {
+          transform: translate(5.23vw, 105vh) scale(0.86)
+        }
+      }
+
+      .embedim-snow:nth-child(8) {
+        opacity: 0.52;
+        transform: translate(88.32vw, -10px) scale(0.38);
+        animation: fall-8 18s -24s linear infinite
+      }
+
+      @keyframes fall-8 {
+        50.00% {
+          transform: translate(78.51vw, 50.00vh) scale(0.38)
+        }
+
+        to {
+          transform: translate(83.42vw, 105vh) scale(0.38)
+        }
+      }
+
+      .embedim-snow:nth-child(9) {
+        opacity: 0.49;
+        transform: translate(46.94vw, -10px) scale(0.29);
+        animation: fall-9 26s -17s linear infinite
+      }
+
+      @keyframes fall-9 {
+        60.00% {
+          transform: translate(40.93vw, 60.00vh) scale(0.29)
+        }
+
+        to {
+          transform: translate(43.93vw, 105vh) scale(0.29)
+        }
+      }
+
+      .embedim-snow:nth-child(10) {
+        opacity: 0.60;
+        transform: translate(63.75vw, -10px) scale(0.60);
+        animation: fall-10 26s -19s linear infinite
+      }
+
+      @keyframes fall-10 {
+        50.00% {
+          transform: translate(71.94vw, 50.00vh) scale(0.60)
+        }
+
+        to {
+          transform: translate(67.85vw, 105vh) scale(0.60)
+        }
+      }
+
+      .embedim-snow:nth-child(11) {
+        opacity: 0.26;
+        transform: translate(3.64vw, -10px) scale(0.71);
+        animation: fall-11 19s -4s linear infinite
+      }
+
+      @keyframes fall-11 {
+        40.00% {
+          transform: translate(5.51vw, 40.00vh) scale(0.71)
+        }
+
+        to {
+          transform: translate(4.58vw, 105vh) scale(0.71)
+        }
+      }
+
+      .embedim-snow:nth-child(12) {
+        opacity: 0.37;
+        transform: translate(90.50vw, -10px) scale(0.40);
+        animation: fall-12 24s -27s linear infinite
+      }
+
+      @keyframes fall-12 {
+        30.00% {
+          transform: translate(99.04vw, 30.00vh) scale(0.40)
+        }
+
+        to {
+          transform: translate(94.77vw, 105vh) scale(0.40)
+        }
+      }
+
+      .embedim-snow:nth-child(13) {
+        opacity: 0.56;
+        transform: translate(1.19vw, -10px) scale(0.56);
+        animation: fall-13 14s -23s linear infinite
+      }
+
+      @keyframes fall-13 {
+        80.00% {
+          transform: translate(-1.58vw, 80.00vh) scale(0.56)
+        }
+
+        to {
+          transform: translate(-0.20vw, 105vh) scale(0.56)
+        }
+      }
+
+      .embedim-snow:nth-child(14) {
+        opacity: 0.34;
+        transform: translate(65.88vw, -10px) scale(0.43);
+        animation: fall-14 30s -26s linear infinite
+      }
+
+      @keyframes fall-14 {
+        80.00% {
+          transform: translate(68.69vw, 80.00vh) scale(0.43)
+        }
+
+        to {
+          transform: translate(67.28vw, 105vh) scale(0.43)
+        }
+      }
+
+      .embedim-snow:nth-child(15) {
+        opacity: 0.28;
+        transform: translate(5.79vw, -10px) scale(0.16);
+        animation: fall-15 20s -27s linear infinite
+      }
+
+      @keyframes fall-15 {
+        60.00% {
+          transform: translate(11.08vw, 60.00vh) scale(0.16)
+        }
+
+        to {
+          transform: translate(8.43vw, 105vh) scale(0.16)
+        }
+      }
+
+      .embedim-snow:nth-child(16) {
+        opacity: 0.01;
+        transform: translate(18.36vw, -10px) scale(0.43);
+        animation: fall-16 19s -15s linear infinite
+      }
+
+      @keyframes fall-16 {
+        40.00% {
+          transform: translate(20.05vw, 40.00vh) scale(0.43)
+        }
+
+        to {
+          transform: translate(19.21vw, 105vh) scale(0.43)
+        }
+      }
+
+      .embedim-snow:nth-child(17) {
+        opacity: 0.69;
+        transform: translate(99.07vw, -10px) scale(0.85);
+        animation: fall-17 11s -21s linear infinite
+      }
+
+      @keyframes fall-17 {
+        80.00% {
+          transform: translate(101.64vw, 80.00vh) scale(0.85)
+        }
+
+        to {
+          transform: translate(100.36vw, 105vh) scale(0.85)
+        }
+      }
+
+      .embedim-snow:nth-child(18) {
+        opacity: 0.42;
+        transform: translate(83.50vw, -10px) scale(0.81);
+        animation: fall-18 13s -7s linear infinite
+      }
+
+      @keyframes fall-18 {
+        70.00% {
+          transform: translate(82.21vw, 70.00vh) scale(0.81)
+        }
+
+        to {
+          transform: translate(82.85vw, 105vh) scale(0.81)
+        }
+      }
+
+      .embedim-snow:nth-child(19) {
+        opacity: 0.97;
+        transform: translate(64.17vw, -10px) scale(0.96);
+        animation: fall-19 16s -29s linear infinite
+      }
+
+      @keyframes fall-19 {
+        70.00% {
+          transform: translate(62.30vw, 70.00vh) scale(0.96)
+        }
+
+        to {
+          transform: translate(63.23vw, 105vh) scale(0.96)
+        }
+      }
+
+      .embedim-snow:nth-child(20) {
+        opacity: 0.40;
+        transform: translate(13.51vw, -10px) scale(0.39);
+        animation: fall-20 28s -20s linear infinite
+      }
+
+      @keyframes fall-20 {
+        70.00% {
+          transform: translate(4.15vw, 70.00vh) scale(0.39)
+        }
+
+        to {
+          transform: translate(8.83vw, 105vh) scale(0.39)
+        }
+      }
+
+      .embedim-snow:nth-child(21) {
+        opacity: 0.02;
+        transform: translate(85.98vw, -10px) scale(0.33);
+        animation: fall-21 19s -9s linear infinite
+      }
+
+      @keyframes fall-21 {
+        40.00% {
+          transform: translate(83.82vw, 40.00vh) scale(0.33)
+        }
+
+        to {
+          transform: translate(84.90vw, 105vh) scale(0.33)
+        }
+      }
+
+      .embedim-snow:nth-child(22) {
+        opacity: 0.15;
+        transform: translate(89.89vw, -10px) scale(0.82);
+        animation: fall-22 16s -18s linear infinite
+      }
+
+      @keyframes fall-22 {
+        70.00% {
+          transform: translate(99.25vw, 70.00vh) scale(0.82)
+        }
+
+        to {
+          transform: translate(94.57vw, 105vh) scale(0.82)
+        }
+      }
+
+      .embedim-snow:nth-child(23) {
+        opacity: 0.46;
+        transform: translate(20.75vw, -10px) scale(0.30);
+        animation: fall-23 18s -18s linear infinite
+      }
+
+      @keyframes fall-23 {
+        70.00% {
+          transform: translate(16.18vw, 70.00vh) scale(0.30)
+        }
+
+        to {
+          transform: translate(18.46vw, 105vh) scale(0.30)
+        }
+      }
+
+      .embedim-snow:nth-child(24) {
+        opacity: 0.75;
+        transform: translate(84.45vw, -10px) scale(0.42);
+        animation: fall-24 28s -3s linear infinite
+      }
+
+      @keyframes fall-24 {
+        40.00% {
+          transform: translate(74.93vw, 40.00vh) scale(0.42)
+        }
+
+        to {
+          transform: translate(79.69vw, 105vh) scale(0.42)
+        }
+      }
+
+      .embedim-snow:nth-child(25) {
+        opacity: 0.71;
+        transform: translate(78.44vw, -10px) scale(0.76);
+        animation: fall-25 18s -5s linear infinite
+      }
+
+      @keyframes fall-25 {
+        50.00% {
+          transform: translate(82.85vw, 50.00vh) scale(0.76)
+        }
+
+        to {
+          transform: translate(80.64vw, 105vh) scale(0.76)
+        }
+      }
+
+      .embedim-snow:nth-child(26) {
+        opacity: 0.18;
+        transform: translate(10.02vw, -10px) scale(0.45);
+        animation: fall-26 29s -17s linear infinite
+      }
+
+      @keyframes fall-26 {
+        70.00% {
+          transform: translate(14.51vw, 70.00vh) scale(0.45)
+        }
+
+        to {
+          transform: translate(12.26vw, 105vh) scale(0.45)
+        }
+      }
+
+      .embedim-snow:nth-child(27) {
+        opacity: 0.95;
+        transform: translate(97.69vw, -10px) scale(0.50);
+        animation: fall-27 13s -3s linear infinite
+      }
+
+      @keyframes fall-27 {
+        40.00% {
+          transform: translate(89.95vw, 40.00vh) scale(0.50)
+        }
+
+        to {
+          transform: translate(93.82vw, 105vh) scale(0.50)
+        }
+      }
+
+      .embedim-snow:nth-child(28) {
+        opacity: 0.27;
+        transform: translate(62.49vw, -10px) scale(0.92);
+        animation: fall-28 25s -11s linear infinite
+      }
+
+      @keyframes fall-28 {
+        70.00% {
+          transform: translate(70.23vw, 70.00vh) scale(0.92)
+        }
+
+        to {
+          transform: translate(66.36vw, 105vh) scale(0.92)
+        }
+      }
+
+      .embedim-snow:nth-child(29) {
+        opacity: 0.38;
+        transform: translate(75.59vw, -10px) scale(0.30);
+        animation: fall-29 24s -21s linear infinite
+      }
+
+      @keyframes fall-29 {
+        80.00% {
+          transform: translate(80.85vw, 80.00vh) scale(0.30)
+        }
+
+        to {
+          transform: translate(78.22vw, 105vh) scale(0.30)
+        }
+      }
+
+      .embedim-snow:nth-child(30) {
+        opacity: 0.45;
+        transform: translate(22.83vw, -10px) scale(0.28);
+        animation: fall-30 16s -11s linear infinite
+      }
+
+      @keyframes fall-30 {
+        50.00% {
+          transform: translate(20.47vw, 50.00vh) scale(0.28)
+        }
+
+        to {
+          transform: translate(21.65vw, 105vh) scale(0.28)
+        }
+      }
+
+      .embedim-snow:nth-child(31) {
+        opacity: 0.39;
+        transform: translate(13.66vw, -10px) scale(0.18);
+        animation: fall-31 26s -7s linear infinite
+      }
+
+      @keyframes fall-31 {
+        60.00% {
+          transform: translate(19.85vw, 60.00vh) scale(0.18)
+        }
+
+        to {
+          transform: translate(16.75vw, 105vh) scale(0.18)
+        }
+      }
+
+      .embedim-snow:nth-child(32) {
+        opacity: 0.18;
+        transform: translate(41.55vw, -10px) scale(0.78);
+        animation: fall-32 20s -1s linear infinite
+      }
+
+      @keyframes fall-32 {
+        30.00% {
+          transform: translate(35.50vw, 30.00vh) scale(0.78)
+        }
+
+        to {
+          transform: translate(38.53vw, 105vh) scale(0.78)
+        }
+      }
+
+      .embedim-snow:nth-child(33) {
+        opacity: 0.02;
+        transform: translate(91.12vw, -10px) scale(0.52);
+        animation: fall-33 22s -11s linear infinite
+      }
+
+      @keyframes fall-33 {
+        60.00% {
+          transform: translate(98.90vw, 60.00vh) scale(0.52)
+        }
+
+        to {
+          transform: translate(95.01vw, 105vh) scale(0.52)
+        }
+      }
+
+      .embedim-snow:nth-child(34) {
+        opacity: 0.66;
+        transform: translate(62.52vw, -10px) scale(0.15);
+        animation: fall-34 30s -22s linear infinite
+      }
+
+      @keyframes fall-34 {
+        80.00% {
+          transform: translate(66.47vw, 80.00vh) scale(0.15)
+        }
+
+        to {
+          transform: translate(64.49vw, 105vh) scale(0.15)
+        }
+      }
+
+      .embedim-snow:nth-child(35) {
+        opacity: 0.89;
+        transform: translate(4.54vw, -10px) scale(0.55);
+        animation: fall-35 10s -16s linear infinite
+      }
+
+      @keyframes fall-35 {
+        50.00% {
+          transform: translate(13.28vw, 50.00vh) scale(0.55)
+        }
+
+        to {
+          transform: translate(8.91vw, 105vh) scale(0.55)
+        }
+      }
+
+      .embedim-snow:nth-child(36) {
+        opacity: 0.04;
+        transform: translate(1.48vw, -10px) scale(0.08);
+        animation: fall-36 21s -25s linear infinite
+      }
+
+      @keyframes fall-36 {
+        70.00% {
+          transform: translate(-2.93vw, 70.00vh) scale(0.08)
+        }
+
+        to {
+          transform: translate(-0.72vw, 105vh) scale(0.08)
+        }
+      }
+
+      .embedim-snow:nth-child(37) {
+        opacity: 0.81;
+        transform: translate(88.88vw, -10px) scale(0.79);
+        animation: fall-37 30s -10s linear infinite
+      }
+
+      @keyframes fall-37 {
+        60.00% {
+          transform: translate(98.52vw, 60.00vh) scale(0.79)
+        }
+
+        to {
+          transform: translate(93.70vw, 105vh) scale(0.79)
+        }
+      }
+
+      .embedim-snow:nth-child(38) {
+        opacity: 0.38;
+        transform: translate(72.99vw, -10px) scale(0.11);
+        animation: fall-38 11s -0s linear infinite
+      }
+
+      @keyframes fall-38 {
+        50.00% {
+          transform: translate(78.56vw, 50.00vh) scale(0.11)
+        }
+
+        to {
+          transform: translate(75.78vw, 105vh) scale(0.11)
+        }
+      }
+
+      .embedim-snow:nth-child(39) {
+        opacity: 0.43;
+        transform: translate(48.22vw, -10px) scale(0.91);
+        animation: fall-39 11s -17s linear infinite
+      }
+
+      @keyframes fall-39 {
+        70.00% {
+          transform: translate(41.33vw, 70.00vh) scale(0.91)
+        }
+
+        to {
+          transform: translate(44.78vw, 105vh) scale(0.91)
+        }
+      }
+
+      .embedim-snow:nth-child(40) {
+        opacity: 0.85;
+        transform: translate(91.56vw, -10px) scale(0.06);
+        animation: fall-40 30s -7s linear infinite
+      }
+
+      @keyframes fall-40 {
+        50.00% {
+          transform: translate(92.84vw, 50.00vh) scale(0.06)
+        }
+
+        to {
+          transform: translate(92.20vw, 105vh) scale(0.06)
+        }
+      }
+
+      .embedim-snow:nth-child(41) {
+        opacity: 0.11;
+        transform: translate(65.32vw, -10px) scale(0.08);
+        animation: fall-41 26s -14s linear infinite
+      }
+
+      @keyframes fall-41 {
+        30.00% {
+          transform: translate(68.98vw, 30.00vh) scale(0.08)
+        }
+
+        to {
+          transform: translate(67.15vw, 105vh) scale(0.08)
+        }
+      }
+
+      .embedim-snow:nth-child(42) {
+        opacity: 0.47;
+        transform: translate(21.27vw, -10px) scale(0.35);
+        animation: fall-42 29s -25s linear infinite
+      }
+
+      @keyframes fall-42 {
+        40.00% {
+          transform: translate(28.89vw, 40.00vh) scale(0.35)
+        }
+
+        to {
+          transform: translate(25.08vw, 105vh) scale(0.35)
+        }
+      }
+
+      .embedim-snow:nth-child(43) {
+        opacity: 0.96;
+        transform: translate(70.14vw, -10px) scale(0.09);
+        animation: fall-43 11s -17s linear infinite
+      }
+
+      @keyframes fall-43 {
+        40.00% {
+          transform: translate(61.79vw, 40.00vh) scale(0.09)
+        }
+
+        to {
+          transform: translate(65.97vw, 105vh) scale(0.09)
+        }
+      }
+
+      .embedim-snow:nth-child(44) {
+        opacity: 0.67;
+        transform: translate(21.01vw, -10px) scale(0.73);
+        animation: fall-44 12s -13s linear infinite
+      }
+
+      @keyframes fall-44 {
+        30.00% {
+          transform: translate(22.44vw, 30.00vh) scale(0.73)
+        }
+
+        to {
+          transform: translate(21.73vw, 105vh) scale(0.73)
+        }
+      }
+
+      .embedim-snow:nth-child(45) {
+        opacity: 1.00;
+        transform: translate(70.80vw, -10px) scale(0.37);
+        animation: fall-45 27s -3s linear infinite
+      }
+
+      @keyframes fall-45 {
+        70.00% {
+          transform: translate(78.59vw, 70.00vh) scale(0.37)
+        }
+
+        to {
+          transform: translate(74.70vw, 105vh) scale(0.37)
+        }
+      }
+
+      .embedim-snow:nth-child(46) {
+        opacity: 0.48;
+        transform: translate(76.56vw, -10px) scale(0.62);
+        animation: fall-46 23s -21s linear infinite
+      }
+
+      @keyframes fall-46 {
+        80.00% {
+          transform: translate(78.83vw, 80.00vh) scale(0.62)
+        }
+
+        to {
+          transform: translate(77.69vw, 105vh) scale(0.62)
+        }
+      }
+
+      .embedim-snow:nth-child(47) {
+        opacity: 0.99;
+        transform: translate(88.65vw, -10px) scale(0.48);
+        animation: fall-47 19s -28s linear infinite
+      }
+
+      @keyframes fall-47 {
+        60.00% {
+          transform: translate(85.50vw, 60.00vh) scale(0.48)
+        }
+
+        to {
+          transform: translate(87.07vw, 105vh) scale(0.48)
+        }
+      }
+
+      .embedim-snow:nth-child(48) {
+        opacity: 0.69;
+        transform: translate(77.15vw, -10px) scale(0.10);
+        animation: fall-48 26s -13s linear infinite
+      }
+
+      @keyframes fall-48 {
+        40.00% {
+          transform: translate(73.44vw, 40.00vh) scale(0.10)
+        }
+
+        to {
+          transform: translate(75.30vw, 105vh) scale(0.10)
+        }
+      }
+
+      .embedim-snow:nth-child(49) {
+        opacity: 0.19;
+        transform: translate(29.43vw, -10px) scale(0.33);
+        animation: fall-49 14s -13s linear infinite
+      }
+
+      @keyframes fall-49 {
+        80.00% {
+          transform: translate(20.20vw, 80.00vh) scale(0.33)
+        }
+
+        to {
+          transform: translate(24.82vw, 105vh) scale(0.33)
+        }
+      }
+
+      .embedim-snow:nth-child(50) {
+        opacity: 0.76;
+        transform: translate(91.63vw, -10px) scale(0.80);
+        animation: fall-50 24s -12s linear infinite
+      }
+
+      @keyframes fall-50 {
+        50.00% {
+          transform: translate(92.02vw, 50.00vh) scale(0.80)
+        }
+
+        to {
+          transform: translate(91.82vw, 105vh) scale(0.80)
+        }
+      }
+
+      .embedim-snow:nth-child(51) {
+        opacity: 0.11;
+        transform: translate(61.06vw, -10px) scale(0.44);
+        animation: fall-51 24s -20s linear infinite
+      }
+
+      @keyframes fall-51 {
+        30.00% {
+          transform: translate(60.96vw, 30.00vh) scale(0.44)
+        }
+
+        to {
+          transform: translate(61.01vw, 105vh) scale(0.44)
+        }
+      }
+
+      .embedim-snow:nth-child(52) {
+        opacity: 0.96;
+        transform: translate(17.78vw, -10px) scale(0.51);
+        animation: fall-52 13s -25s linear infinite
+      }
+
+      @keyframes fall-52 {
+        60.00% {
+          transform: translate(15.34vw, 60.00vh) scale(0.51)
+        }
+
+        to {
+          transform: translate(16.56vw, 105vh) scale(0.51)
+        }
+      }
+
+      .embedim-snow:nth-child(53) {
+        opacity: 0.32;
+        transform: translate(90.27vw, -10px) scale(0.24);
+        animation: fall-53 28s -2s linear infinite
+      }
+
+      @keyframes fall-53 {
+        40.00% {
+          transform: translate(91.99vw, 40.00vh) scale(0.24)
+        }
+
+        to {
+          transform: translate(91.13vw, 105vh) scale(0.24)
+        }
+      }
+
+      .embedim-snow:nth-child(54) {
+        opacity: 0.53;
+        transform: translate(55.47vw, -10px) scale(0.28);
+        animation: fall-54 22s -29s linear infinite
+      }
+
+      @keyframes fall-54 {
+        40.00% {
+          transform: translate(55.64vw, 40.00vh) scale(0.28)
+        }
+
+        to {
+          transform: translate(55.55vw, 105vh) scale(0.28)
+        }
+      }
+
+      .embedim-snow:nth-child(55) {
+        opacity: 0.20;
+        transform: translate(41.70vw, -10px) scale(0.46);
+        animation: fall-55 15s -10s linear infinite
+      }
+
+      @keyframes fall-55 {
+        30.00% {
+          transform: translate(50.04vw, 30.00vh) scale(0.46)
+        }
+
+        to {
+          transform: translate(45.87vw, 105vh) scale(0.46)
+        }
+      }
+
+      .embedim-snow:nth-child(56) {
+        opacity: 0.50;
+        transform: translate(65.40vw, -10px) scale(0.29);
+        animation: fall-56 28s -4s linear infinite
+      }
+
+      @keyframes fall-56 {
+        80.00% {
+          transform: translate(69.99vw, 80.00vh) scale(0.29)
+        }
+
+        to {
+          transform: translate(67.69vw, 105vh) scale(0.29)
+        }
+      }
+
+      .embedim-snow:nth-child(57) {
+        opacity: 0.51;
+        transform: translate(13.04vw, -10px) scale(0.84);
+        animation: fall-57 12s -29s linear infinite
+      }
+
+      @keyframes fall-57 {
+        40.00% {
+          transform: translate(3.44vw, 40.00vh) scale(0.84)
+        }
+
+        to {
+          transform: translate(8.24vw, 105vh) scale(0.84)
+        }
+      }
+
+      .embedim-snow:nth-child(58) {
+        opacity: 0.73;
+        transform: translate(31.88vw, -10px) scale(0.20);
+        animation: fall-58 16s -19s linear infinite
+      }
+
+      @keyframes fall-58 {
+        50.00% {
+          transform: translate(24.98vw, 50.00vh) scale(0.20)
+        }
+
+        to {
+          transform: translate(28.43vw, 105vh) scale(0.20)
+        }
+      }
+
+      .embedim-snow:nth-child(59) {
+        opacity: 0.42;
+        transform: translate(91.71vw, -10px) scale(0.23);
+        animation: fall-59 16s -26s linear infinite
+      }
+
+      @keyframes fall-59 {
+        80.00% {
+          transform: translate(98.17vw, 80.00vh) scale(0.23)
+        }
+
+        to {
+          transform: translate(94.94vw, 105vh) scale(0.23)
+        }
+      }
+
+      .embedim-snow:nth-child(60) {
+        opacity: 0.99;
+        transform: translate(54.55vw, -10px) scale(0.94);
+        animation: fall-60 26s -30s linear infinite
+      }
+
+      @keyframes fall-60 {
+        60.00% {
+          transform: translate(58.85vw, 60.00vh) scale(0.94)
+        }
+
+        to {
+          transform: translate(56.70vw, 105vh) scale(0.94)
+        }
+      }
+
+      .embedim-snow:nth-child(61) {
+        opacity: 0.56;
+        transform: translate(68.96vw, -10px) scale(0.71);
+        animation: fall-61 15s -2s linear infinite
+      }
+
+      @keyframes fall-61 {
+        80.00% {
+          transform: translate(65.74vw, 80.00vh) scale(0.71)
+        }
+
+        to {
+          transform: translate(67.35vw, 105vh) scale(0.71)
+        }
+      }
+
+      .embedim-snow:nth-child(62) {
+        opacity: 0.22;
+        transform: translate(19.96vw, -10px) scale(0.49);
+        animation: fall-62 26s -29s linear infinite
+      }
+
+      @keyframes fall-62 {
+        30.00% {
+          transform: translate(10.37vw, 30.00vh) scale(0.49)
+        }
+
+        to {
+          transform: translate(15.17vw, 105vh) scale(0.49)
+        }
+      }
+
+      .embedim-snow:nth-child(63) {
+        opacity: 0.67;
+        transform: translate(42.91vw, -10px) scale(0.28);
+        animation: fall-63 30s -21s linear infinite
+      }
+
+      @keyframes fall-63 {
+        50.00% {
+          transform: translate(33.63vw, 50.00vh) scale(0.28)
+        }
+
+        to {
+          transform: translate(38.27vw, 105vh) scale(0.28)
+        }
+      }
+
+      .embedim-snow:nth-child(64) {
+        opacity: 0.61;
+        transform: translate(51.56vw, -10px) scale(0.83);
+        animation: fall-64 24s -25s linear infinite
+      }
+
+      @keyframes fall-64 {
+        40.00% {
+          transform: translate(48.18vw, 40.00vh) scale(0.83)
+        }
+
+        to {
+          transform: translate(49.87vw, 105vh) scale(0.83)
+        }
+      }
+
+      .embedim-snow:nth-child(65) {
+        opacity: 0.84;
+        transform: translate(34.67vw, -10px) scale(0.99);
+        animation: fall-65 18s -0s linear infinite
+      }
+
+      @keyframes fall-65 {
+        80.00% {
+          transform: translate(38.64vw, 80.00vh) scale(0.99)
+        }
+
+        to {
+          transform: translate(36.66vw, 105vh) scale(0.99)
+        }
+      }
+
+      .embedim-snow:nth-child(66) {
+        opacity: 0.25;
+        transform: translate(77.72vw, -10px) scale(0.91);
+        animation: fall-66 23s -13s linear infinite
+      }
+
+      @keyframes fall-66 {
+        60.00% {
+          transform: translate(76.83vw, 60.00vh) scale(0.91)
+        }
+
+        to {
+          transform: translate(77.28vw, 105vh) scale(0.91)
+        }
+      }
+
+      .embedim-snow:nth-child(67) {
+        opacity: 0.55;
+        transform: translate(58.91vw, -10px) scale(0.05);
+        animation: fall-67 27s -19s linear infinite
+      }
+
+      @keyframes fall-67 {
+        50.00% {
+          transform: translate(53.20vw, 50.00vh) scale(0.05)
+        }
+
+        to {
+          transform: translate(56.05vw, 105vh) scale(0.05)
+        }
+      }
+
+      .embedim-snow:nth-child(68) {
+        opacity: 0.97;
+        transform: translate(27.09vw, -10px) scale(0.74);
+        animation: fall-68 12s -22s linear infinite
+      }
+
+      @keyframes fall-68 {
+        70.00% {
+          transform: translate(33.04vw, 70.00vh) scale(0.74)
+        }
+
+        to {
+          transform: translate(30.07vw, 105vh) scale(0.74)
+        }
+      }
+
+      .embedim-snow:nth-child(69) {
+        opacity: 0.29;
+        transform: translate(79.19vw, -10px) scale(0.16);
+        animation: fall-69 10s -2s linear infinite
+      }
+
+      @keyframes fall-69 {
+        60.00% {
+          transform: translate(82.30vw, 60.00vh) scale(0.16)
+        }
+
+        to {
+          transform: translate(80.74vw, 105vh) scale(0.16)
+        }
+      }
+
+      .embedim-snow:nth-child(70) {
+        opacity: 0.53;
+        transform: translate(63.84vw, -10px) scale(0.68);
+        animation: fall-70 19s -5s linear infinite
+      }
+
+      @keyframes fall-70 {
+        70.00% {
+          transform: translate(56.73vw, 70.00vh) scale(0.68)
+        }
+
+        to {
+          transform: translate(60.28vw, 105vh) scale(0.68)
+        }
+      }
+
+      .embedim-snow:nth-child(71) {
+        opacity: 0.10;
+        transform: translate(76.66vw, -10px) scale(0.83);
+        animation: fall-71 22s -25s linear infinite
+      }
+
+      @keyframes fall-71 {
+        50.00% {
+          transform: translate(73.79vw, 50.00vh) scale(0.83)
+        }
+
+        to {
+          transform: translate(75.22vw, 105vh) scale(0.83)
+        }
+      }
+
+      .embedim-snow:nth-child(72) {
+        opacity: 0.17;
+        transform: translate(14.03vw, -10px) scale(0.24);
+        animation: fall-72 23s -19s linear infinite
+      }
+
+      @keyframes fall-72 {
+        70.00% {
+          transform: translate(18.70vw, 70.00vh) scale(0.24)
+        }
+
+        to {
+          transform: translate(16.36vw, 105vh) scale(0.24)
+        }
+      }
+
+      .embedim-snow:nth-child(73) {
+        opacity: 0.03;
+        transform: translate(86.70vw, -10px) scale(0.99);
+        animation: fall-73 26s -18s linear infinite
+      }
+
+      @keyframes fall-73 {
+        40.00% {
+          transform: translate(76.89vw, 40.00vh) scale(0.99)
+        }
+
+        to {
+          transform: translate(81.79vw, 105vh) scale(0.99)
+        }
+      }
+
+      .embedim-snow:nth-child(74) {
+        opacity: 0.80;
+        transform: translate(37.05vw, -10px) scale(0.40);
+        animation: fall-74 23s -16s linear infinite
+      }
+
+      @keyframes fall-74 {
+        40.00% {
+          transform: translate(30.59vw, 40.00vh) scale(0.40)
+        }
+
+        to {
+          transform: translate(33.82vw, 105vh) scale(0.40)
+        }
+      }
+
+      .embedim-snow:nth-child(75) {
+        opacity: 0.32;
+        transform: translate(2.93vw, -10px) scale(0.71);
+        animation: fall-75 14s -3s linear infinite
+      }
+
+      @keyframes fall-75 {
+        80.00% {
+          transform: translate(6.23vw, 80.00vh) scale(0.71)
+        }
+
+        to {
+          transform: translate(4.58vw, 105vh) scale(0.71)
+        }
+      }
+
+      .embedim-snow:nth-child(76) {
+        opacity: 0.53;
+        transform: translate(74.95vw, -10px) scale(0.41);
+        animation: fall-76 13s -8s linear infinite
+      }
+
+      @keyframes fall-76 {
+        30.00% {
+          transform: translate(74.76vw, 30.00vh) scale(0.41)
+        }
+
+        to {
+          transform: translate(74.85vw, 105vh) scale(0.41)
+        }
+      }
+
+      .embedim-snow:nth-child(77) {
+        opacity: 0.64;
+        transform: translate(59.14vw, -10px) scale(0.88);
+        animation: fall-77 21s -21s linear infinite
+      }
+
+      @keyframes fall-77 {
+        80.00% {
+          transform: translate(50.14vw, 80.00vh) scale(0.88)
+        }
+
+        to {
+          transform: translate(54.64vw, 105vh) scale(0.88)
+        }
+      }
+
+      .embedim-snow:nth-child(78) {
+        opacity: 0.67;
+        transform: translate(5.76vw, -10px) scale(0.04);
+        animation: fall-78 13s -25s linear infinite
+      }
+
+      @keyframes fall-78 {
+        60.00% {
+          transform: translate(6.63vw, 60.00vh) scale(0.04)
+        }
+
+        to {
+          transform: translate(6.19vw, 105vh) scale(0.04)
+        }
+      }
+
+      .embedim-snow:nth-child(79) {
+        opacity: 0.08;
+        transform: translate(8.53vw, -10px) scale(0.73);
+        animation: fall-79 17s -2s linear infinite
+      }
+
+      @keyframes fall-79 {
+        40.00% {
+          transform: translate(-0.61vw, 40.00vh) scale(0.73)
+        }
+
+        to {
+          transform: translate(3.96vw, 105vh) scale(0.73)
+        }
+      }
+
+      .embedim-snow:nth-child(80) {
+        opacity: 0.21;
+        transform: translate(38.95vw, -10px) scale(0.77);
+        animation: fall-80 27s -22s linear infinite
+      }
+
+      @keyframes fall-80 {
+        50.00% {
+          transform: translate(29.56vw, 50.00vh) scale(0.77)
+        }
+
+        to {
+          transform: translate(34.25vw, 105vh) scale(0.77)
+        }
+      }
+
+      .embedim-snow:nth-child(81) {
+        opacity: 0.44;
+        transform: translate(88.97vw, -10px) scale(0.62);
+        animation: fall-81 14s -21s linear infinite
+      }
+
+      @keyframes fall-81 {
+        60.00% {
+          transform: translate(96.44vw, 60.00vh) scale(0.62)
+        }
+
+        to {
+          transform: translate(92.70vw, 105vh) scale(0.62)
+        }
+      }
+
+      .embedim-snow:nth-child(82) {
+        opacity: 0.19;
+        transform: translate(73.85vw, -10px) scale(0.98);
+        animation: fall-82 18s -28s linear infinite
+      }
+
+      @keyframes fall-82 {
+        80.00% {
+          transform: translate(72.24vw, 80.00vh) scale(0.98)
+        }
+
+        to {
+          transform: translate(73.04vw, 105vh) scale(0.98)
+        }
+      }
+
+      .embedim-snow:nth-child(83) {
+        opacity: 0.68;
+        transform: translate(50.64vw, -10px) scale(0.49);
+        animation: fall-83 19s -25s linear infinite
+      }
+
+      @keyframes fall-83 {
+        50.00% {
+          transform: translate(53.07vw, 50.00vh) scale(0.49)
+        }
+
+        to {
+          transform: translate(51.86vw, 105vh) scale(0.49)
+        }
+      }
+
+      .embedim-snow:nth-child(84) {
+        opacity: 0.43;
+        transform: translate(99.55vw, -10px) scale(0.58);
+        animation: fall-84 30s -5s linear infinite
+      }
+
+      @keyframes fall-84 {
+        70.00% {
+          transform: translate(101.50vw, 70.00vh) scale(0.58)
+        }
+
+        to {
+          transform: translate(100.52vw, 105vh) scale(0.58)
+        }
+      }
+
+      .embedim-snow:nth-child(85) {
+        opacity: 0.14;
+        transform: translate(90.02vw, -10px) scale(0.87);
+        animation: fall-85 18s -24s linear infinite
+      }
+
+      @keyframes fall-85 {
+        80.00% {
+          transform: translate(81.24vw, 80.00vh) scale(0.87)
+        }
+
+        to {
+          transform: translate(85.63vw, 105vh) scale(0.87)
+        }
+      }
+
+      .embedim-snow:nth-child(86) {
+        opacity: 0.02;
+        transform: translate(4.64vw, -10px) scale(0.36);
+        animation: fall-86 25s -28s linear infinite
+      }
+
+      @keyframes fall-86 {
+        40.00% {
+          transform: translate(6.24vw, 40.00vh) scale(0.36)
+        }
+
+        to {
+          transform: translate(5.44vw, 105vh) scale(0.36)
+        }
+      }
+
+      .embedim-snow:nth-child(87) {
+        opacity: 0.34;
+        transform: translate(72.17vw, -10px) scale(0.20);
+        animation: fall-87 27s -23s linear infinite
+      }
+
+      @keyframes fall-87 {
+        30.00% {
+          transform: translate(63.29vw, 30.00vh) scale(0.20)
+        }
+
+        to {
+          transform: translate(67.73vw, 105vh) scale(0.20)
+        }
+      }
+
+      .embedim-snow:nth-child(88) {
+        opacity: 0.59;
+        transform: translate(24.35vw, -10px) scale(0.65);
+        animation: fall-88 13s -13s linear infinite
+      }
+
+      @keyframes fall-88 {
+        50.00% {
+          transform: translate(34.06vw, 50.00vh) scale(0.65)
+        }
+
+        to {
+          transform: translate(29.20vw, 105vh) scale(0.65)
+        }
+      }
+
+      .embedim-snow:nth-child(89) {
+        opacity: 0.82;
+        transform: translate(63.95vw, -10px) scale(0.51);
+        animation: fall-89 22s -0s linear infinite
+      }
+
+      @keyframes fall-89 {
+        30.00% {
+          transform: translate(55.21vw, 30.00vh) scale(0.51)
+        }
+
+        to {
+          transform: translate(59.58vw, 105vh) scale(0.51)
+        }
+      }
+
+      .embedim-snow:nth-child(90) {
+        opacity: 0.86;
+        transform: translate(61.81vw, -10px) scale(0.92);
+        animation: fall-90 25s -20s linear infinite
+      }
+
+      @keyframes fall-90 {
+        80.00% {
+          transform: translate(63.06vw, 80.00vh) scale(0.92)
+        }
+
+        to {
+          transform: translate(62.43vw, 105vh) scale(0.92)
+        }
+      }
+
+      .embedim-snow:nth-child(91) {
+        opacity: 0.22;
+        transform: translate(43.24vw, -10px) scale(0.75);
+        animation: fall-91 24s -1s linear infinite
+      }
+
+      @keyframes fall-91 {
+        80.00% {
+          transform: translate(44.86vw, 80.00vh) scale(0.75)
+        }
+
+        to {
+          transform: translate(44.05vw, 105vh) scale(0.75)
+        }
+      }
+
+      .embedim-snow:nth-child(92) {
+        opacity: 0.68;
+        transform: translate(46.14vw, -10px) scale(0.52);
+        animation: fall-92 25s -18s linear infinite
+      }
+
+      @keyframes fall-92 {
+        60.00% {
+          transform: translate(52.80vw, 60.00vh) scale(0.52)
+        }
+
+        to {
+          transform: translate(49.47vw, 105vh) scale(0.52)
+        }
+      }
+
+      .embedim-snow:nth-child(93) {
+        opacity: 0.44;
+        transform: translate(57.99vw, -10px) scale(0.19);
+        animation: fall-93 26s -7s linear infinite
+      }
+
+      @keyframes fall-93 {
+        30.00% {
+          transform: translate(52.85vw, 30.00vh) scale(0.19)
+        }
+
+        to {
+          transform: translate(55.42vw, 105vh) scale(0.19)
+        }
+      }
+
+      .embedim-snow:nth-child(94) {
+        opacity: 0.09;
+        transform: translate(40.54vw, -10px) scale(0.07);
+        animation: fall-94 21s -13s linear infinite
+      }
+
+      @keyframes fall-94 {
+        60.00% {
+          transform: translate(31.32vw, 60.00vh) scale(0.07)
+        }
+
+        to {
+          transform: translate(35.93vw, 105vh) scale(0.07)
+        }
+      }
+
+      .embedim-snow:nth-child(95) {
+        opacity: 0.31;
+        transform: translate(47.11vw, -10px) scale(0.67);
+        animation: fall-95 13s -22s linear infinite
+      }
+
+      @keyframes fall-95 {
+        50.00% {
+          transform: translate(44.89vw, 50.00vh) scale(0.67)
+        }
+
+        to {
+          transform: translate(46.00vw, 105vh) scale(0.67)
+        }
+      }
+
+      .embedim-snow:nth-child(96) {
+        opacity: 0.09;
+        transform: translate(3.34vw, -10px) scale(0.86);
+        animation: fall-96 22s -21s linear infinite
+      }
+
+      @keyframes fall-96 {
+        40.00% {
+          transform: translate(5.08vw, 40.00vh) scale(0.86)
+        }
+
+        to {
+          transform: translate(4.21vw, 105vh) scale(0.86)
+        }
+      }
+
+      .embedim-snow:nth-child(97) {
+        opacity: 0.47;
+        transform: translate(51.61vw, -10px) scale(0.43);
+        animation: fall-97 10s -29s linear infinite
+      }
+
+      @keyframes fall-97 {
+        50.00% {
+          transform: translate(55.07vw, 50.00vh) scale(0.43)
+        }
+
+        to {
+          transform: translate(53.34vw, 105vh) scale(0.43)
+        }
+      }
+
+      .embedim-snow:nth-child(98) {
+        opacity: 0.57;
+        transform: translate(51.29vw, -10px) scale(0.05);
+        animation: fall-98 16s -10s linear infinite
+      }
+
+      @keyframes fall-98 {
+        80.00% {
+          transform: translate(59.66vw, 80.00vh) scale(0.05)
+        }
+
+        to {
+          transform: translate(55.48vw, 105vh) scale(0.05)
+        }
+      }
+
+      .embedim-snow:nth-child(99) {
+        opacity: 0.40;
+        transform: translate(53.76vw, -10px) scale(0.12);
+        animation: fall-99 23s -2s linear infinite
+      }
+
+      @keyframes fall-99 {
+        70.00% {
+          transform: translate(60.70vw, 70.00vh) scale(0.12)
+        }
+
+        to {
+          transform: translate(57.23vw, 105vh) scale(0.12)
+        }
+      }
+
+      .embedim-snow:nth-child(100) {
+        opacity: 0.47;
+        transform: translate(17.94vw, -10px) scale(0.73);
+        animation: fall-100 28s -7s linear infinite
+      }
+
+      @keyframes fall-100 {
+        30.00% {
+          transform: translate(24.38vw, 30.00vh) scale(0.73)
+        }
+
+        to {
+          transform: translate(21.16vw, 105vh) scale(0.73)
+        }
+      }
+
+      .embedim-snow:nth-child(101) {
+        opacity: 0.84;
+        transform: translate(80.59vw, -10px) scale(0.06);
+        animation: fall-101 24s -24s linear infinite
+      }
+
+      @keyframes fall-101 {
+        80.00% {
+          transform: translate(87.86vw, 80.00vh) scale(0.06)
+        }
+
+        to {
+          transform: translate(84.23vw, 105vh) scale(0.06)
+        }
+      }
+
+      .embedim-snow:nth-child(102) {
+        opacity: 0.98;
+        transform: translate(6.58vw, -10px) scale(0.89);
+        animation: fall-102 28s -9s linear infinite
+      }
+
+      @keyframes fall-102 {
+        60.00% {
+          transform: translate(0.48vw, 60.00vh) scale(0.89)
+        }
+
+        to {
+          transform: translate(3.53vw, 105vh) scale(0.89)
+        }
+      }
+
+      .embedim-snow:nth-child(103) {
+        opacity: 0.49;
+        transform: translate(80.06vw, -10px) scale(0.78);
+        animation: fall-103 25s -28s linear infinite
+      }
+
+      @keyframes fall-103 {
+        60.00% {
+          transform: translate(73.18vw, 60.00vh) scale(0.78)
+        }
+
+        to {
+          transform: translate(76.62vw, 105vh) scale(0.78)
+        }
+      }
+
+      .embedim-snow:nth-child(104) {
+        opacity: 0.80;
+        transform: translate(31.85vw, -10px) scale(0.65);
+        animation: fall-104 10s -14s linear infinite
+      }
+
+      @keyframes fall-104 {
+        80.00% {
+          transform: translate(36.73vw, 80.00vh) scale(0.65)
+        }
+
+        to {
+          transform: translate(34.29vw, 105vh) scale(0.65)
+        }
+      }
+
+      .embedim-snow:nth-child(105) {
+        opacity: 0.44;
+        transform: translate(86.72vw, -10px) scale(0.83);
+        animation: fall-105 11s -5s linear infinite
+      }
+
+      @keyframes fall-105 {
+        60.00% {
+          transform: translate(79.37vw, 60.00vh) scale(0.83)
+        }
+
+        to {
+          transform: translate(83.05vw, 105vh) scale(0.83)
+        }
+      }
+
+      .embedim-snow:nth-child(106) {
+        opacity: 0.18;
+        transform: translate(31.13vw, -10px) scale(0.92);
+        animation: fall-106 18s -4s linear infinite
+      }
+
+      @keyframes fall-106 {
+        80.00% {
+          transform: translate(27.75vw, 80.00vh) scale(0.92)
+        }
+
+        to {
+          transform: translate(29.44vw, 105vh) scale(0.92)
+        }
+      }
+
+      .embedim-snow:nth-child(107) {
+        opacity: 0.18;
+        transform: translate(86.98vw, -10px) scale(0.35);
+        animation: fall-107 16s -19s linear infinite
+      }
+
+      @keyframes fall-107 {
+        60.00% {
+          transform: translate(80.43vw, 60.00vh) scale(0.35)
+        }
+
+        to {
+          transform: translate(83.71vw, 105vh) scale(0.35)
+        }
+      }
+
+      .embedim-snow:nth-child(108) {
+        opacity: 0.12;
+        transform: translate(77.55vw, -10px) scale(0.80);
+        animation: fall-108 26s -20s linear infinite
+      }
+
+      @keyframes fall-108 {
+        70.00% {
+          transform: translate(75.61vw, 70.00vh) scale(0.80)
+        }
+
+        to {
+          transform: translate(76.58vw, 105vh) scale(0.80)
+        }
+      }
+
+      .embedim-snow:nth-child(109) {
+        opacity: 0.87;
+        transform: translate(82.21vw, -10px) scale(0.08);
+        animation: fall-109 24s -16s linear infinite
+      }
+
+      @keyframes fall-109 {
+        60.00% {
+          transform: translate(85.27vw, 60.00vh) scale(0.08)
+        }
+
+        to {
+          transform: translate(83.74vw, 105vh) scale(0.08)
+        }
+      }
+
+      .embedim-snow:nth-child(110) {
+        opacity: 0.40;
+        transform: translate(99.46vw, -10px) scale(0.49);
+        animation: fall-110 27s -24s linear infinite
+      }
+
+      @keyframes fall-110 {
+        40.00% {
+          transform: translate(94.35vw, 40.00vh) scale(0.49)
+        }
+
+        to {
+          transform: translate(96.91vw, 105vh) scale(0.49)
+        }
+      }
+
+      .embedim-snow:nth-child(111) {
+        opacity: 0.62;
+        transform: translate(3.16vw, -10px) scale(0.22);
+        animation: fall-111 13s -26s linear infinite
+      }
+
+      @keyframes fall-111 {
+        30.00% {
+          transform: translate(2.43vw, 30.00vh) scale(0.22)
+        }
+
+        to {
+          transform: translate(2.79vw, 105vh) scale(0.22)
+        }
+      }
+
+      .embedim-snow:nth-child(112) {
+        opacity: 0.25;
+        transform: translate(22.34vw, -10px) scale(0.33);
+        animation: fall-112 11s -1s linear infinite
+      }
+
+      @keyframes fall-112 {
+        30.00% {
+          transform: translate(24.01vw, 30.00vh) scale(0.33)
+        }
+
+        to {
+          transform: translate(23.18vw, 105vh) scale(0.33)
+        }
+      }
+
+      .embedim-snow:nth-child(113) {
+        opacity: 0.23;
+        transform: translate(57.75vw, -10px) scale(0.06);
+        animation: fall-113 16s -25s linear infinite
+      }
+
+      @keyframes fall-113 {
+        60.00% {
+          transform: translate(54.08vw, 60.00vh) scale(0.06)
+        }
+
+        to {
+          transform: translate(55.92vw, 105vh) scale(0.06)
+        }
+      }
+
+      .embedim-snow:nth-child(114) {
+        opacity: 0.53;
+        transform: translate(47.44vw, -10px) scale(0.63);
+        animation: fall-114 25s -10s linear infinite
+      }
+
+      @keyframes fall-114 {
+        40.00% {
+          transform: translate(52.70vw, 40.00vh) scale(0.63)
+        }
+
+        to {
+          transform: translate(50.07vw, 105vh) scale(0.63)
+        }
+      }
+
+      .embedim-snow:nth-child(115) {
+        opacity: 0.07;
+        transform: translate(68.80vw, -10px) scale(0.89);
+        animation: fall-115 20s -15s linear infinite
+      }
+
+      @keyframes fall-115 {
+        80.00% {
+          transform: translate(61.53vw, 80.00vh) scale(0.89)
+        }
+
+        to {
+          transform: translate(65.17vw, 105vh) scale(0.89)
+        }
+      }
+
+      .embedim-snow:nth-child(116) {
+        opacity: 0.88;
+        transform: translate(78.50vw, -10px) scale(0.34);
+        animation: fall-116 20s -14s linear infinite
+      }
+
+      @keyframes fall-116 {
+        60.00% {
+          transform: translate(74.44vw, 60.00vh) scale(0.34)
+        }
+
+        to {
+          transform: translate(76.47vw, 105vh) scale(0.34)
+        }
+      }
+
+      .embedim-snow:nth-child(117) {
+        opacity: 0.80;
+        transform: translate(91.59vw, -10px) scale(0.10);
+        animation: fall-117 19s -13s linear infinite
+      }
+
+      @keyframes fall-117 {
+        70.00% {
+          transform: translate(93.42vw, 70.00vh) scale(0.10)
+        }
+
+        to {
+          transform: translate(92.50vw, 105vh) scale(0.10)
+        }
+      }
+
+      .embedim-snow:nth-child(118) {
+        opacity: 0.63;
+        transform: translate(61.07vw, -10px) scale(0.89);
+        animation: fall-118 30s -11s linear infinite
+      }
+
+      @keyframes fall-118 {
+        50.00% {
+          transform: translate(60.03vw, 50.00vh) scale(0.89)
+        }
+
+        to {
+          transform: translate(60.55vw, 105vh) scale(0.89)
+        }
+      }
+
+      .embedim-snow:nth-child(119) {
+        opacity: 0.93;
+        transform: translate(69.46vw, -10px) scale(0.40);
+        animation: fall-119 26s -13s linear infinite
+      }
+
+      @keyframes fall-119 {
+        80.00% {
+          transform: translate(67.17vw, 80.00vh) scale(0.40)
+        }
+
+        to {
+          transform: translate(68.31vw, 105vh) scale(0.40)
+        }
+      }
+
+      .embedim-snow:nth-child(120) {
+        opacity: 0.04;
+        transform: translate(2.86vw, -10px) scale(0.19);
+        animation: fall-120 15s -10s linear infinite
+      }
+
+      @keyframes fall-120 {
+        30.00% {
+          transform: translate(0.33vw, 30.00vh) scale(0.19)
+        }
+
+        to {
+          transform: translate(1.60vw, 105vh) scale(0.19)
+        }
+      }
+
+      .embedim-snow:nth-child(121) {
+        opacity: 0.35;
+        transform: translate(12.71vw, -10px) scale(0.54);
+        animation: fall-121 10s -17s linear infinite
+      }
+
+      @keyframes fall-121 {
+        70.00% {
+          transform: translate(11.21vw, 70.00vh) scale(0.54)
+        }
+
+        to {
+          transform: translate(11.96vw, 105vh) scale(0.54)
+        }
+      }
+
+      .embedim-snow:nth-child(122) {
+        opacity: 0.15;
+        transform: translate(3.23vw, -10px) scale(0.22);
+        animation: fall-122 25s -18s linear infinite
+      }
+
+      @keyframes fall-122 {
+        30.00% {
+          transform: translate(12.66vw, 30.00vh) scale(0.22)
+        }
+
+        to {
+          transform: translate(7.94vw, 105vh) scale(0.22)
+        }
+      }
+
+      .embedim-snow:nth-child(123) {
+        opacity: 0.92;
+        transform: translate(35.63vw, -10px) scale(0.33);
+        animation: fall-123 25s -27s linear infinite
+      }
+
+      @keyframes fall-123 {
+        60.00% {
+          transform: translate(30.32vw, 60.00vh) scale(0.33)
+        }
+
+        to {
+          transform: translate(32.97vw, 105vh) scale(0.33)
+        }
+      }
+
+      .embedim-snow:nth-child(124) {
+        opacity: 0.31;
+        transform: translate(60.30vw, -10px) scale(0.10);
+        animation: fall-124 17s -6s linear infinite
+      }
+
+      @keyframes fall-124 {
+        80.00% {
+          transform: translate(65.65vw, 80.00vh) scale(0.10)
+        }
+
+        to {
+          transform: translate(62.98vw, 105vh) scale(0.10)
+        }
+      }
+
+      .embedim-snow:nth-child(125) {
+        opacity: 0.81;
+        transform: translate(2.35vw, -10px) scale(0.24);
+        animation: fall-125 30s -7s linear infinite
+      }
+
+      @keyframes fall-125 {
+        40.00% {
+          transform: translate(-1.62vw, 40.00vh) scale(0.24)
+        }
+
+        to {
+          transform: translate(0.37vw, 105vh) scale(0.24)
+        }
+      }
+
+      .embedim-snow:nth-child(126) {
+        opacity: 0.82;
+        transform: translate(35.49vw, -10px) scale(0.71);
+        animation: fall-126 21s -3s linear infinite
+      }
+
+      @keyframes fall-126 {
+        50.00% {
+          transform: translate(33.45vw, 50.00vh) scale(0.71)
+        }
+
+        to {
+          transform: translate(34.47vw, 105vh) scale(0.71)
+        }
+      }
+
+      .embedim-snow:nth-child(127) {
+        opacity: 0.61;
+        transform: translate(99.07vw, -10px) scale(0.88);
+        animation: fall-127 10s -9s linear infinite
+      }
+
+      @keyframes fall-127 {
+        30.00% {
+          transform: translate(93.90vw, 30.00vh) scale(0.88)
+        }
+
+        to {
+          transform: translate(96.49vw, 105vh) scale(0.88)
+        }
+      }
+
+      .embedim-snow:nth-child(128) {
+        opacity: 0.26;
+        transform: translate(7.65vw, -10px) scale(0.55);
+        animation: fall-128 20s -7s linear infinite
+      }
+
+      @keyframes fall-128 {
+        30.00% {
+          transform: translate(8.43vw, 30.00vh) scale(0.55)
+        }
+
+        to {
+          transform: translate(8.04vw, 105vh) scale(0.55)
+        }
+      }
+
+      .embedim-snow:nth-child(129) {
+        opacity: 0.52;
+        transform: translate(66.78vw, -10px) scale(0.26);
+        animation: fall-129 23s -28s linear infinite
+      }
+
+      @keyframes fall-129 {
+        60.00% {
+          transform: translate(69.53vw, 60.00vh) scale(0.26)
+        }
+
+        to {
+          transform: translate(68.15vw, 105vh) scale(0.26)
+        }
+      }
+
+      .embedim-snow:nth-child(130) {
+        opacity: 0.81;
+        transform: translate(2.52vw, -10px) scale(0.85);
+        animation: fall-130 26s -30s linear infinite
+      }
+
+      @keyframes fall-130 {
+        50.00% {
+          transform: translate(11.04vw, 50.00vh) scale(0.85)
+        }
+
+        to {
+          transform: translate(6.78vw, 105vh) scale(0.85)
+        }
+      }
+
+      .embedim-snow:nth-child(131) {
+        opacity: 0.19;
+        transform: translate(36.50vw, -10px) scale(0.93);
+        animation: fall-131 15s -29s linear infinite
+      }
+
+      @keyframes fall-131 {
+        30.00% {
+          transform: translate(41.18vw, 30.00vh) scale(0.93)
+        }
+
+        to {
+          transform: translate(38.84vw, 105vh) scale(0.93)
+        }
+      }
+
+      .embedim-snow:nth-child(132) {
+        opacity: 0.49;
+        transform: translate(59.65vw, -10px) scale(0.24);
+        animation: fall-132 14s -27s linear infinite
+      }
+
+      @keyframes fall-132 {
+        50.00% {
+          transform: translate(62.64vw, 50.00vh) scale(0.24)
+        }
+
+        to {
+          transform: translate(61.15vw, 105vh) scale(0.24)
+        }
+      }
+
+      .embedim-snow:nth-child(133) {
+        opacity: 0.99;
+        transform: translate(43.60vw, -10px) scale(0.44);
+        animation: fall-133 24s -23s linear infinite
+      }
+
+      @keyframes fall-133 {
+        80.00% {
+          transform: translate(47.41vw, 80.00vh) scale(0.44)
+        }
+
+        to {
+          transform: translate(45.50vw, 105vh) scale(0.44)
+        }
+      }
+
+      .embedim-snow:nth-child(134) {
+        opacity: 0.33;
+        transform: translate(76.53vw, -10px) scale(0.59);
+        animation: fall-134 11s -20s linear infinite
+      }
+
+      @keyframes fall-134 {
+        30.00% {
+          transform: translate(79.72vw, 30.00vh) scale(0.59)
+        }
+
+        to {
+          transform: translate(78.13vw, 105vh) scale(0.59)
+        }
+      }
+
+      .embedim-snow:nth-child(135) {
+        opacity: 0.59;
+        transform: translate(52.05vw, -10px) scale(0.17);
+        animation: fall-135 12s -9s linear infinite
+      }
+
+      @keyframes fall-135 {
+        40.00% {
+          transform: translate(44.61vw, 40.00vh) scale(0.17)
+        }
+
+        to {
+          transform: translate(48.33vw, 105vh) scale(0.17)
+        }
+      }
+
+      .embedim-snow:nth-child(136) {
+        opacity: 0.32;
+        transform: translate(47.73vw, -10px) scale(0.15);
+        animation: fall-136 23s -19s linear infinite
+      }
+
+      @keyframes fall-136 {
+        70.00% {
+          transform: translate(53.13vw, 70.00vh) scale(0.15)
+        }
+
+        to {
+          transform: translate(50.43vw, 105vh) scale(0.15)
+        }
+      }
+
+      .embedim-snow:nth-child(137) {
+        opacity: 0.38;
+        transform: translate(91.12vw, -10px) scale(0.49);
+        animation: fall-137 30s -13s linear infinite
+      }
+
+      @keyframes fall-137 {
+        80.00% {
+          transform: translate(93.81vw, 80.00vh) scale(0.49)
+        }
+
+        to {
+          transform: translate(92.46vw, 105vh) scale(0.49)
+        }
+      }
+
+      .embedim-snow:nth-child(138) {
+        opacity: 0.48;
+        transform: translate(30.42vw, -10px) scale(0.79);
+        animation: fall-138 17s -18s linear infinite
+      }
+
+      @keyframes fall-138 {
+        50.00% {
+          transform: translate(27.58vw, 50.00vh) scale(0.79)
+        }
+
+        to {
+          transform: translate(29.00vw, 105vh) scale(0.79)
+        }
+      }
+
+      .embedim-snow:nth-child(139) {
+        opacity: 0.57;
+        transform: translate(46.00vw, -10px) scale(0.69);
+        animation: fall-139 20s -4s linear infinite
+      }
+
+      @keyframes fall-139 {
+        50.00% {
+          transform: translate(39.01vw, 50.00vh) scale(0.69)
+        }
+
+        to {
+          transform: translate(42.51vw, 105vh) scale(0.69)
+        }
+      }
+
+      .embedim-snow:nth-child(140) {
+        opacity: 0.78;
+        transform: translate(50.55vw, -10px) scale(0.81);
+        animation: fall-140 26s -5s linear infinite
+      }
+
+      @keyframes fall-140 {
+        60.00% {
+          transform: translate(53.48vw, 60.00vh) scale(0.81)
+        }
+
+        to {
+          transform: translate(52.02vw, 105vh) scale(0.81)
+        }
+      }
+
+      .embedim-snow:nth-child(141) {
+        opacity: 0.13;
+        transform: translate(15.90vw, -10px) scale(0.29);
+        animation: fall-141 12s -16s linear infinite
+      }
+
+      @keyframes fall-141 {
+        60.00% {
+          transform: translate(6.45vw, 60.00vh) scale(0.29)
+        }
+
+        to {
+          transform: translate(11.17vw, 105vh) scale(0.29)
+        }
+      }
+
+      .embedim-snow:nth-child(142) {
+        opacity: 0.70;
+        transform: translate(46.13vw, -10px) scale(0.71);
+        animation: fall-142 25s -2s linear infinite
+      }
+
+      @keyframes fall-142 {
+        30.00% {
+          transform: translate(51.58vw, 30.00vh) scale(0.71)
+        }
+
+        to {
+          transform: translate(48.86vw, 105vh) scale(0.71)
+        }
+      }
+
+      .embedim-snow:nth-child(143) {
+        opacity: 0.55;
+        transform: translate(67.86vw, -10px) scale(1.00);
+        animation: fall-143 24s -28s linear infinite
+      }
+
+      @keyframes fall-143 {
+        70.00% {
+          transform: translate(77.47vw, 70.00vh) scale(1.00)
+        }
+
+        to {
+          transform: translate(72.67vw, 105vh) scale(1.00)
+        }
+      }
+
+      .embedim-snow:nth-child(144) {
+        opacity: 0.40;
+        transform: translate(61.46vw, -10px) scale(0.43);
+        animation: fall-144 18s -2s linear infinite
+      }
+
+      @keyframes fall-144 {
+        80.00% {
+          transform: translate(71.06vw, 80.00vh) scale(0.43)
+        }
+
+        to {
+          transform: translate(66.26vw, 105vh) scale(0.43)
+        }
+      }
+
+      .embedim-snow:nth-child(145) {
+        opacity: 0.97;
+        transform: translate(86.05vw, -10px) scale(0.32);
+        animation: fall-145 18s -23s linear infinite
+      }
+
+      @keyframes fall-145 {
+        60.00% {
+          transform: translate(93.08vw, 60.00vh) scale(0.32)
+        }
+
+        to {
+          transform: translate(89.56vw, 105vh) scale(0.32)
+        }
+      }
+
+      .embedim-snow:nth-child(146) {
+        opacity: 0.55;
+        transform: translate(51.13vw, -10px) scale(0.45);
+        animation: fall-146 26s -8s linear infinite
+      }
+
+      @keyframes fall-146 {
+        70.00% {
+          transform: translate(44.02vw, 70.00vh) scale(0.45)
+        }
+
+        to {
+          transform: translate(47.58vw, 105vh) scale(0.45)
+        }
+      }
+
+      .embedim-snow:nth-child(147) {
+        opacity: 0.44;
+        transform: translate(38.09vw, -10px) scale(0.71);
+        animation: fall-147 30s -9s linear infinite
+      }
+
+      @keyframes fall-147 {
+        80.00% {
+          transform: translate(37.70vw, 80.00vh) scale(0.71)
+        }
+
+        to {
+          transform: translate(37.89vw, 105vh) scale(0.71)
+        }
+      }
+
+      .embedim-snow:nth-child(148) {
+        opacity: 0.34;
+        transform: translate(58.00vw, -10px) scale(0.26);
+        animation: fall-148 29s -21s linear infinite
+      }
+
+      @keyframes fall-148 {
+        30.00% {
+          transform: translate(59.68vw, 30.00vh) scale(0.26)
+        }
+
+        to {
+          transform: translate(58.84vw, 105vh) scale(0.26)
+        }
+      }
+
+      .embedim-snow:nth-child(149) {
+        opacity: 0.44;
+        transform: translate(52.95vw, -10px) scale(0.84);
+        animation: fall-149 23s -19s linear infinite
+      }
+
+      @keyframes fall-149 {
+        80.00% {
+          transform: translate(58.96vw, 80.00vh) scale(0.84)
+        }
+
+        to {
+          transform: translate(55.96vw, 105vh) scale(0.84)
+        }
+      }
+
+      .embedim-snow:nth-child(150) {
+        opacity: 0.75;
+        transform: translate(96.06vw, -10px) scale(0.60);
+        animation: fall-150 12s -20s linear infinite
+      }
+
+      @keyframes fall-150 {
+        60.00% {
+          transform: translate(88.09vw, 60.00vh) scale(0.60)
+        }
+
+        to {
+          transform: translate(92.07vw, 105vh) scale(0.60)
+        }
+      }
+
+      .embedim-snow:nth-child(151) {
+        opacity: 0.58;
+        transform: translate(48.53vw, -10px) scale(0.46);
+        animation: fall-151 18s -5s linear infinite
+      }
+
+      @keyframes fall-151 {
+        70.00% {
+          transform: translate(57.71vw, 70.00vh) scale(0.46)
+        }
+
+        to {
+          transform: translate(53.12vw, 105vh) scale(0.46)
+        }
+      }
+
+      .embedim-snow:nth-child(152) {
+        opacity: 0.15;
+        transform: translate(5.21vw, -10px) scale(0.22);
+        animation: fall-152 17s -12s linear infinite
+      }
+
+      @keyframes fall-152 {
+        50.00% {
+          transform: translate(11.14vw, 50.00vh) scale(0.22)
+        }
+
+        to {
+          transform: translate(8.18vw, 105vh) scale(0.22)
+        }
+      }
+
+      .embedim-snow:nth-child(153) {
+        opacity: 0.66;
+        transform: translate(11.39vw, -10px) scale(0.02);
+        animation: fall-153 27s -12s linear infinite
+      }
+
+      @keyframes fall-153 {
+        50.00% {
+          transform: translate(16.16vw, 50.00vh) scale(0.02)
+        }
+
+        to {
+          transform: translate(13.78vw, 105vh) scale(0.02)
+        }
+      }
+
+      .embedim-snow:nth-child(154) {
+        opacity: 0.91;
+        transform: translate(24.10vw, -10px) scale(0.04);
+        animation: fall-154 18s -17s linear infinite
+      }
+
+      @keyframes fall-154 {
+        80.00% {
+          transform: translate(33.26vw, 80.00vh) scale(0.04)
+        }
+
+        to {
+          transform: translate(28.68vw, 105vh) scale(0.04)
+        }
+      }
+
+      .embedim-snow:nth-child(155) {
+        opacity: 0.94;
+        transform: translate(0.31vw, -10px) scale(0.58);
+        animation: fall-155 15s -6s linear infinite
+      }
+
+      @keyframes fall-155 {
+        50.00% {
+          transform: translate(-8.34vw, 50.00vh) scale(0.58)
+        }
+
+        to {
+          transform: translate(-4.02vw, 105vh) scale(0.58)
+        }
+      }
+
+      .embedim-snow:nth-child(156) {
+        opacity: 0.66;
+        transform: translate(32.53vw, -10px) scale(0.84);
+        animation: fall-156 12s -30s linear infinite
+      }
+
+      @keyframes fall-156 {
+        80.00% {
+          transform: translate(31.78vw, 80.00vh) scale(0.84)
+        }
+
+        to {
+          transform: translate(32.16vw, 105vh) scale(0.84)
+        }
+      }
+
+      .embedim-snow:nth-child(157) {
+        opacity: 0.52;
+        transform: translate(32.61vw, -10px) scale(0.01);
+        animation: fall-157 13s -15s linear infinite
+      }
+
+      @keyframes fall-157 {
+        50.00% {
+          transform: translate(37.20vw, 50.00vh) scale(0.01)
+        }
+
+        to {
+          transform: translate(34.90vw, 105vh) scale(0.01)
+        }
+      }
+
+      .embedim-snow:nth-child(158) {
+        opacity: 0.44;
+        transform: translate(59.79vw, -10px) scale(0.16);
+        animation: fall-158 23s -27s linear infinite
+      }
+
+      @keyframes fall-158 {
+        60.00% {
+          transform: translate(57.38vw, 60.00vh) scale(0.16)
+        }
+
+        to {
+          transform: translate(58.59vw, 105vh) scale(0.16)
+        }
+      }
+
+      .embedim-snow:nth-child(159) {
+        opacity: 0.93;
+        transform: translate(7.28vw, -10px) scale(0.08);
+        animation: fall-159 20s -2s linear infinite
+      }
+
+      @keyframes fall-159 {
+        30.00% {
+          transform: translate(10.29vw, 30.00vh) scale(0.08)
+        }
+
+        to {
+          transform: translate(8.78vw, 105vh) scale(0.08)
+        }
+      }
+
+      .embedim-snow:nth-child(160) {
+        opacity: 0.85;
+        transform: translate(45.24vw, -10px) scale(0.44);
+        animation: fall-160 17s -28s linear infinite
+      }
+
+      @keyframes fall-160 {
+        30.00% {
+          transform: translate(46.48vw, 30.00vh) scale(0.44)
+        }
+
+        to {
+          transform: translate(45.86vw, 105vh) scale(0.44)
+        }
+      }
+
+      .embedim-snow:nth-child(161) {
+        opacity: 0.42;
+        transform: translate(71.02vw, -10px) scale(0.43);
+        animation: fall-161 22s -5s linear infinite
+      }
+
+      @keyframes fall-161 {
+        60.00% {
+          transform: translate(64.00vw, 60.00vh) scale(0.43)
+        }
+
+        to {
+          transform: translate(67.51vw, 105vh) scale(0.43)
+        }
+      }
+
+      .embedim-snow:nth-child(162) {
+        opacity: 0.44;
+        transform: translate(41.36vw, -10px) scale(0.48);
+        animation: fall-162 23s -2s linear infinite
+      }
+
+      @keyframes fall-162 {
+        80.00% {
+          transform: translate(32.87vw, 80.00vh) scale(0.48)
+        }
+
+        to {
+          transform: translate(37.11vw, 105vh) scale(0.48)
+        }
+      }
+
+      .embedim-snow:nth-child(163) {
+        opacity: 0.03;
+        transform: translate(12.86vw, -10px) scale(0.76);
+        animation: fall-163 30s -22s linear infinite
+      }
+
+      @keyframes fall-163 {
+        30.00% {
+          transform: translate(3.12vw, 30.00vh) scale(0.76)
+        }
+
+        to {
+          transform: translate(7.99vw, 105vh) scale(0.76)
+        }
+      }
+
+      .embedim-snow:nth-child(164) {
+        opacity: 0.38;
+        transform: translate(73.06vw, -10px) scale(0.54);
+        animation: fall-164 19s -23s linear infinite
+      }
+
+      @keyframes fall-164 {
+        60.00% {
+          transform: translate(77.11vw, 60.00vh) scale(0.54)
+        }
+
+        to {
+          transform: translate(75.09vw, 105vh) scale(0.54)
+        }
+      }
+
+      .embedim-snow:nth-child(165) {
+        opacity: 0.74;
+        transform: translate(62.54vw, -10px) scale(0.65);
+        animation: fall-165 14s -19s linear infinite
+      }
+
+      @keyframes fall-165 {
+        30.00% {
+          transform: translate(54.48vw, 30.00vh) scale(0.65)
+        }
+
+        to {
+          transform: translate(58.51vw, 105vh) scale(0.65)
+        }
+      }
+
+      .embedim-snow:nth-child(166) {
+        opacity: 0.23;
+        transform: translate(27.52vw, -10px) scale(0.14);
+        animation: fall-166 10s -4s linear infinite
+      }
+
+      @keyframes fall-166 {
+        60.00% {
+          transform: translate(18.67vw, 60.00vh) scale(0.14)
+        }
+
+        to {
+          transform: translate(23.10vw, 105vh) scale(0.14)
+        }
+      }
+
+      .embedim-snow:nth-child(167) {
+        opacity: 0.02;
+        transform: translate(93.70vw, -10px) scale(0.03);
+        animation: fall-167 26s -27s linear infinite
+      }
+
+      @keyframes fall-167 {
+        60.00% {
+          transform: translate(94.68vw, 60.00vh) scale(0.03)
+        }
+
+        to {
+          transform: translate(94.19vw, 105vh) scale(0.03)
+        }
+      }
+
+      .embedim-snow:nth-child(168) {
+        opacity: 0.29;
+        transform: translate(24.90vw, -10px) scale(0.46);
+        animation: fall-168 12s -24s linear infinite
+      }
+
+      @keyframes fall-168 {
+        70.00% {
+          transform: translate(20.43vw, 70.00vh) scale(0.46)
+        }
+
+        to {
+          transform: translate(22.66vw, 105vh) scale(0.46)
+        }
+      }
+
+      .embedim-snow:nth-child(169) {
+        opacity: 0.21;
+        transform: translate(57.72vw, -10px) scale(0.41);
+        animation: fall-169 18s -1s linear infinite
+      }
+
+      @keyframes fall-169 {
+        80.00% {
+          transform: translate(51.81vw, 80.00vh) scale(0.41)
+        }
+
+        to {
+          transform: translate(54.76vw, 105vh) scale(0.41)
+        }
+      }
+
+      .embedim-snow:nth-child(170) {
+        opacity: 0.94;
+        transform: translate(78.98vw, -10px) scale(0.01);
+        animation: fall-170 27s -18s linear infinite
+      }
+
+      @keyframes fall-170 {
+        70.00% {
+          transform: translate(73.69vw, 70.00vh) scale(0.01)
+        }
+
+        to {
+          transform: translate(76.33vw, 105vh) scale(0.01)
+        }
+      }
+
+      .embedim-snow:nth-child(171) {
+        opacity: 0.68;
+        transform: translate(80.35vw, -10px) scale(0.37);
+        animation: fall-171 30s -21s linear infinite
+      }
+
+      @keyframes fall-171 {
+        80.00% {
+          transform: translate(89.52vw, 80.00vh) scale(0.37)
+        }
+
+        to {
+          transform: translate(84.93vw, 105vh) scale(0.37)
+        }
+      }
+
+      .embedim-snow:nth-child(172) {
+        opacity: 0.04;
+        transform: translate(7.15vw, -10px) scale(0.09);
+        animation: fall-172 30s -5s linear infinite
+      }
+
+      @keyframes fall-172 {
+        50.00% {
+          transform: translate(12.60vw, 50.00vh) scale(0.09)
+        }
+
+        to {
+          transform: translate(9.87vw, 105vh) scale(0.09)
+        }
+      }
+
+      .embedim-snow:nth-child(173) {
+        opacity: 0.06;
+        transform: translate(0.79vw, -10px) scale(0.07);
+        animation: fall-173 13s -23s linear infinite
+      }
+
+      @keyframes fall-173 {
+        70.00% {
+          transform: translate(5.79vw, 70.00vh) scale(0.07)
+        }
+
+        to {
+          transform: translate(3.29vw, 105vh) scale(0.07)
+        }
+      }
+
+      .embedim-snow:nth-child(174) {
+        opacity: 0.10;
+        transform: translate(22.58vw, -10px) scale(0.54);
+        animation: fall-174 17s -23s linear infinite
+      }
+
+      @keyframes fall-174 {
+        70.00% {
+          transform: translate(30.79vw, 70.00vh) scale(0.54)
+        }
+
+        to {
+          transform: translate(26.69vw, 105vh) scale(0.54)
+        }
+      }
+
+      .embedim-snow:nth-child(175) {
+        opacity: 0.53;
+        transform: translate(93.46vw, -10px) scale(0.34);
+        animation: fall-175 24s -6s linear infinite
+      }
+
+      @keyframes fall-175 {
+        60.00% {
+          transform: translate(84.57vw, 60.00vh) scale(0.34)
+        }
+
+        to {
+          transform: translate(89.01vw, 105vh) scale(0.34)
+        }
+      }
+
+      .embedim-snow:nth-child(176) {
+        opacity: 0.95;
+        transform: translate(56.31vw, -10px) scale(0.05);
+        animation: fall-176 21s -1s linear infinite
+      }
+
+      @keyframes fall-176 {
+        30.00% {
+          transform: translate(55.36vw, 30.00vh) scale(0.05)
+        }
+
+        to {
+          transform: translate(55.84vw, 105vh) scale(0.05)
+        }
+      }
+
+      .embedim-snow:nth-child(177) {
+        opacity: 0.26;
+        transform: translate(35.58vw, -10px) scale(0.11);
+        animation: fall-177 26s -12s linear infinite
+      }
+
+      @keyframes fall-177 {
+        30.00% {
+          transform: translate(40.37vw, 30.00vh) scale(0.11)
+        }
+
+        to {
+          transform: translate(37.98vw, 105vh) scale(0.11)
+        }
+      }
+
+      .embedim-snow:nth-child(178) {
+        opacity: 0.96;
+        transform: translate(68.76vw, -10px) scale(0.19);
+        animation: fall-178 28s -30s linear infinite
+      }
+
+      @keyframes fall-178 {
+        70.00% {
+          transform: translate(60.40vw, 70.00vh) scale(0.19)
+        }
+
+        to {
+          transform: translate(64.58vw, 105vh) scale(0.19)
+        }
+      }
+
+      .embedim-snow:nth-child(179) {
+        opacity: 0.43;
+        transform: translate(0.55vw, -10px) scale(0.86);
+        animation: fall-179 18s -20s linear infinite
+      }
+
+      @keyframes fall-179 {
+        30.00% {
+          transform: translate(4.05vw, 30.00vh) scale(0.86)
+        }
+
+        to {
+          transform: translate(2.30vw, 105vh) scale(0.86)
+        }
+      }
+
+      .embedim-snow:nth-child(180) {
+        opacity: 0.10;
+        transform: translate(7.39vw, -10px) scale(0.92);
+        animation: fall-180 14s -14s linear infinite
+      }
+
+      @keyframes fall-180 {
+        70.00% {
+          transform: translate(1.74vw, 70.00vh) scale(0.92)
+        }
+
+        to {
+          transform: translate(4.57vw, 105vh) scale(0.92)
+        }
+      }
+
+      .embedim-snow:nth-child(181) {
+        opacity: 0.50;
+        transform: translate(15.45vw, -10px) scale(0.51);
+        animation: fall-181 15s -27s linear infinite
+      }
+
+      @keyframes fall-181 {
+        80.00% {
+          transform: translate(21.05vw, 80.00vh) scale(0.51)
+        }
+
+        to {
+          transform: translate(18.25vw, 105vh) scale(0.51)
+        }
+      }
+
+      .embedim-snow:nth-child(182) {
+        opacity: 0.81;
+        transform: translate(69.42vw, -10px) scale(0.96);
+        animation: fall-182 28s -1s linear infinite
+      }
+
+      @keyframes fall-182 {
+        80.00% {
+          transform: translate(69.27vw, 80.00vh) scale(0.96)
+        }
+
+        to {
+          transform: translate(69.34vw, 105vh) scale(0.96)
+        }
+      }
+
+      .embedim-snow:nth-child(183) {
+        opacity: 0.51;
+        transform: translate(51.69vw, -10px) scale(0.65);
+        animation: fall-183 23s -26s linear infinite
+      }
+
+      @keyframes fall-183 {
+        80.00% {
+          transform: translate(61.11vw, 80.00vh) scale(0.65)
+        }
+
+        to {
+          transform: translate(56.40vw, 105vh) scale(0.65)
+        }
+      }
+
+      .embedim-snow:nth-child(184) {
+        opacity: 0.56;
+        transform: translate(0.35vw, -10px) scale(0.95);
+        animation: fall-184 26s -25s linear infinite
+      }
+
+      @keyframes fall-184 {
+        70.00% {
+          transform: translate(-8.54vw, 70.00vh) scale(0.95)
+        }
+
+        to {
+          transform: translate(-4.09vw, 105vh) scale(0.95)
+        }
+      }
+
+      .embedim-snow:nth-child(185) {
+        opacity: 0.41;
+        transform: translate(55.70vw, -10px) scale(0.14);
+        animation: fall-185 25s -28s linear infinite
+      }
+
+      @keyframes fall-185 {
+        60.00% {
+          transform: translate(60.56vw, 60.00vh) scale(0.14)
+        }
+
+        to {
+          transform: translate(58.13vw, 105vh) scale(0.14)
+        }
+      }
+
+      .embedim-snow:nth-child(186) {
+        opacity: 0.09;
+        transform: translate(49.98vw, -10px) scale(0.45);
+        animation: fall-186 12s -0s linear infinite
+      }
+
+      @keyframes fall-186 {
+        60.00% {
+          transform: translate(46.63vw, 60.00vh) scale(0.45)
+        }
+
+        to {
+          transform: translate(48.31vw, 105vh) scale(0.45)
+        }
+      }
+
+      .embedim-snow:nth-child(187) {
+        opacity: 0.70;
+        transform: translate(48.33vw, -10px) scale(0.16);
+        animation: fall-187 27s -15s linear infinite
+      }
+
+      @keyframes fall-187 {
+        60.00% {
+          transform: translate(49.25vw, 60.00vh) scale(0.16)
+        }
+
+        to {
+          transform: translate(48.79vw, 105vh) scale(0.16)
+        }
+      }
+
+      .embedim-snow:nth-child(188) {
+        opacity: 0.49;
+        transform: translate(15.83vw, -10px) scale(0.75);
+        animation: fall-188 14s -11s linear infinite
+      }
+
+      @keyframes fall-188 {
+        80.00% {
+          transform: translate(16.31vw, 80.00vh) scale(0.75)
+        }
+
+        to {
+          transform: translate(16.07vw, 105vh) scale(0.75)
+        }
+      }
+
+      .embedim-snow:nth-child(189) {
+        opacity: 0.62;
+        transform: translate(2.53vw, -10px) scale(0.29);
+        animation: fall-189 30s -3s linear infinite
+      }
+
+      @keyframes fall-189 {
+        80.00% {
+          transform: translate(6.70vw, 80.00vh) scale(0.29)
+        }
+
+        to {
+          transform: translate(4.62vw, 105vh) scale(0.29)
+        }
+      }
+
+      .embedim-snow:nth-child(190) {
+        opacity: 0.45;
+        transform: translate(63.84vw, -10px) scale(0.73);
+        animation: fall-190 28s -27s linear infinite
+      }
+
+      @keyframes fall-190 {
+        60.00% {
+          transform: translate(57.58vw, 60.00vh) scale(0.73)
+        }
+
+        to {
+          transform: translate(60.71vw, 105vh) scale(0.73)
+        }
+      }
+
+      .embedim-snow:nth-child(191) {
+        opacity: 0.49;
+        transform: translate(74.77vw, -10px) scale(0.68);
+        animation: fall-191 22s -29s linear infinite
+      }
+
+      @keyframes fall-191 {
+        50.00% {
+          transform: translate(68.61vw, 50.00vh) scale(0.68)
+        }
+
+        to {
+          transform: translate(71.69vw, 105vh) scale(0.68)
+        }
+      }
+
+      .embedim-snow:nth-child(192) {
+        opacity: 0.30;
+        transform: translate(41.38vw, -10px) scale(0.37);
+        animation: fall-192 10s -2s linear infinite
+      }
+
+      @keyframes fall-192 {
+        50.00% {
+          transform: translate(45.59vw, 50.00vh) scale(0.37)
+        }
+
+        to {
+          transform: translate(43.48vw, 105vh) scale(0.37)
+        }
+      }
+
+      .embedim-snow:nth-child(193) {
+        opacity: 0.57;
+        transform: translate(53.01vw, -10px) scale(0.05);
+        animation: fall-193 20s -28s linear infinite
+      }
+
+      @keyframes fall-193 {
+        70.00% {
+          transform: translate(62.33vw, 70.00vh) scale(0.05)
+        }
+
+        to {
+          transform: translate(57.67vw, 105vh) scale(0.05)
+        }
+      }
+
+      .embedim-snow:nth-child(194) {
+        opacity: 0.49;
+        transform: translate(28.54vw, -10px) scale(0.99);
+        animation: fall-194 23s -7s linear infinite
+      }
+
+      @keyframes fall-194 {
+        70.00% {
+          transform: translate(30.99vw, 70.00vh) scale(0.99)
+        }
+
+        to {
+          transform: translate(29.77vw, 105vh) scale(0.99)
+        }
+      }
+
+      .embedim-snow:nth-child(195) {
+        opacity: 0.63;
+        transform: translate(99.79vw, -10px) scale(0.93);
+        animation: fall-195 21s -10s linear infinite
+      }
+
+      @keyframes fall-195 {
+        80.00% {
+          transform: translate(101.41vw, 80.00vh) scale(0.93)
+        }
+
+        to {
+          transform: translate(100.60vw, 105vh) scale(0.93)
+        }
+      }
+
+      .embedim-snow:nth-child(196) {
+        opacity: 0.79;
+        transform: translate(91.83vw, -10px) scale(0.83);
+        animation: fall-196 21s -16s linear infinite
+      }
+
+      @keyframes fall-196 {
+        60.00% {
+          transform: translate(98.79vw, 60.00vh) scale(0.83)
+        }
+
+        to {
+          transform: translate(95.31vw, 105vh) scale(0.83)
+        }
+      }
+
+      .embedim-snow:nth-child(197) {
+        opacity: 0.06;
+        transform: translate(41.02vw, -10px) scale(0.76);
+        animation: fall-197 30s -29s linear infinite
+      }
+
+      @keyframes fall-197 {
+        70.00% {
+          transform: translate(44.90vw, 70.00vh) scale(0.76)
+        }
+
+        to {
+          transform: translate(42.96vw, 105vh) scale(0.76)
+        }
+      }
+
+      .embedim-snow:nth-child(198) {
+        opacity: 0.96;
+        transform: translate(79.56vw, -10px) scale(0.68);
+        animation: fall-198 14s -25s linear infinite
+      }
+
+      @keyframes fall-198 {
+        50.00% {
+          transform: translate(71.87vw, 50.00vh) scale(0.68)
+        }
+
+        to {
+          transform: translate(75.72vw, 105vh) scale(0.68)
+        }
+      }
+
+      .embedim-snow:nth-child(199) {
+        opacity: 0.19;
+        transform: translate(27.52vw, -10px) scale(0.61);
+        animation: fall-199 19s -13s linear infinite
+      }
+
+      @keyframes fall-199 {
+        50.00% {
+          transform: translate(23.99vw, 50.00vh) scale(0.61)
+        }
+
+        to {
+          transform: translate(25.76vw, 105vh) scale(0.61)
+        }
+      }
+    </style><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i
+      class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i><i class="embedim-snow"></i>
+  </div>
+  <style>
+    @font-face {
+      font-family: Sofia Pro;
+      src: url("") format('woff2'),
+        url("") format('woff'),
+        url("") format('truetype');
+      font-weight: normal;
+      font-style: normal;
+
+    }
+  </style>
+  <onboard-v2 style="all: initial;"
+    data-scrapbook-shadowdom="
+      <style>
+        :host {  
+          /* COLORS */
+          --white: white;
+          --black: black;
+          --primary-1: #2F80ED;
+          --primary-100: #eff1fc;
+          --primary-200: #d0d4f7;
+          --primary-300: #b1b8f2;
+          --primary-400: #929bed;
+          --primary-500: #6370e5;
+          --primary-600: #454ea0;
+          --primary-700: #323873;
+          --gray-100: #ebebed;
+          --gray-200: #c2c4c9;
+          --gray-300: #999ca5;
+          --gray-400: #707481;
+          --gray-500: #33394b;
+          --gray-600: #242835;
+          --gray-700: #1a1d26;
+          --success-100: #d1fae3;
+          --success-200: #baf7d5;
+          --success-300: #a4f4c6;
+          --success-400: #8df2b8;
+          --success-500: #5aec99;
+          --success-600: #18ce66;
+          --success-700: #129b4d;
+          --danger-100: #ffe5e6;
+          --danger-200: #ffcccc;
+          --danger-300: #ffb3b3;
+          --danger-400: #ff8080;
+          --danger-500: #ff4f4f;
+          --danger-600: #cc0000;
+          --danger-700: #660000;
+          --warning-100: #ffefcc;
+          --warning-200: #ffe7b3;
+          --warning-300: #ffd780;
+          --warning-400: #ffc74c;
+          --warning-500: #ffaf00;
+          --warning-600: #cc8c00;
+          --warning-700: #664600;
+  
+          /* FONTS */
+          --font-family-normal: Sofia Pro;
+  
+          --font-size-1: 3rem;
+          --font-size-2: 2.25rem;
+          --font-size-3: 1.5rem;
+          --font-size-4: 1.25rem;
+          --font-size-5: 1rem;
+          --font-size-6: .875rem;
+          --font-size-7: .75rem;
+  
+          --font-line-height-1: 24px;
+          --font-line-height-2: 20px;
+          --font-line-height-3: 16px;
+          --font-line-height-4: 12px;
+  
+          /* SPACING */
+          --spacing-1: 3rem;
+          --spacing-2: 2rem;
+          --spacing-3: 1.5rem;
+          --spacing-4: 1rem;
+          --spacing-5: 0.5rem;
+          --spacing-6: 0.25rem;
+          --spacing-7: 0.125rem;
+  
+          /* BORDER RADIUS */
+          --border-radius-1: 24px;  
+          --border-radius-2: 20px;  
+          --border-radius-3: 16px;  
+          --border-radius-4: 12px;  
+          --border-radius-5: 8px;  
+
+          /* SHADOWS */
+          --shadow-0: none;
+          --shadow-1: 0px 4px 12px rgba(0, 0, 0, 0.1);
+          --shadow-2: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+          --shadow-3: 0px 4px 16px rgba(179, 179, 179, 0.2);
+
+          /* MODAL POSITIONING */
+          --modal-z-index: 10;
+          --modal-top: unset;
+          --modal-right: unset;
+          --modal-bottom: unset;
+          --modal-left: unset;
+          
+          /* MODAL STYLES */
+          --modal-backdrop: rgba(0, 0, 0, 0.6);
+        }
+      </style>
+    <style id=&quot;svelte-1mvm68y&quot;>.flex{display:flex}.inline-flex{display:inline-flex}.flex-column{flex-direction:column}.items-center{align-items:center}.items-end{align-items:flex-end}.items-start{align-items:flex-start}.justify-center{justify-content:center}.justify-start{justify-content:flex-start}.justify-between{justify-content:space-between}.justify-end{justify-content:flex-end}.justify-around{justify-content:space-around}.relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}.pointer{cursor:pointer}.shadow-1{box-shadow:var(--onboard-shadow-1, var(--shadow-1))}.w-100{width:100%}*{box-sizing:border-box}input{background:var(--onboard-white, var(--white))}input{width:100%;padding:0.5rem 1rem;outline:2px solid var(--onboard-gray-200, var(--gray-200));border:none;border-radius:8px;font-size:1rem;line-height:1.5;color:var(--onboard-gray-600, var(--gray-600));transition:all 200ms ease-in-out}input[type='checkbox']{-webkit-appearance:none;width:auto;background:var(--onboard-white, var(--white));outline:1px solid var(--onboard-gray-300, var(--gray-300));border:none;padding:0.5em;border-radius:3px;display:flex;justify-content:center;align-items:center;position:relative;cursor:pointer}input[type='checkbox']:hover{border-color:var(
+      --onboard-checkbox-background,
+      var(--onboard-primary-500, var(--primary-500))
+    )}input[type='checkbox']:checked{background:var(
+      --onboard-checkbox-background,
+      var(--onboard-primary-500, var(--primary-500))
+    );border-color:var(
+      --onboard-checkbox-background,
+      var(--onboard-primary-500, var(--primary-500))
+    );color:var(--onboard-checkbox-color, var(--onboard-white, var(--white)))}input[type='checkbox']:checked:after{content:url(&quot;&quot;);font-size:12px;position:absolute;color:var(--onboard-checkbox-color, var(--onboard-white, var(--white)))}input:hover{border-color:var(
+      --onboard-checkbox-color,
+      var(--onboard-white, var(--white))
+    )}input:focus{border-color:var(--onboard-primary-500, var(--primary-500));box-shadow:0 0 1px 1px
+      var(
+        --onboard-checkbox-background,
+        var(--onboard-primary-500, var(--primary-500))
+      );box-shadow:0 0 0 1px -moz-mac-focusring}input:disabled, textarea:disabled, select:disabled{background:var(--gray-100)}input::-moz-focus-inner{outline:0;padding:0;margin-top:-2px;margin-bottom:-2px}a{color:var(
+      --onboard-link-color,
+      var(--onboard-primary-500, var(--primary-500))
+    );text-decoration:none}a:hover{text-decoration:underline}button{display:flex;align-items:center;justify-content:center;padding:calc(var(--onboard-spacing-4, var(--spacing-4)) - 1px);border-radius:24px;cursor:pointer;font:inherit;border:none;transition:background-color 150ms ease-in-out, color 150ms ease-in-out}.onboard-button-primary{background:var(--onboard-white, var(--white));padding:calc(var(--onboard-spacing-5, var(--spacing-5)) - 1px)
+      calc(var(--onboard-spacing-4, var(--spacing-4)) - 1px);color:var(--onboard-gray-500, var(--gray-500));font-size:var(--onboard-font-size-6, var(--font-size-6));line-height:var(--onboard-font-line-height-3, var(--font-line-height-3));border:1px solid var(--onboard-gray-500, var(--gray-500));font-weight:700}.button-neutral-solid{width:100%;border-radius:8px;background:var(--onboard-gray-500, var(--gray-500));color:var(--onboard-white, var(--white));line-height:var(--onboard-font-line-height-3, var(--font-line-height-3))}.button-neutral-solid-b{width:100%;background:var(--onboard-gray-100, var(--gray-100));color:var(--onboard-gray-500, var(--gray-500));line-height:var(--onboard-font-line-height-3, var(--font-line-height-3))}button.rounded{border-radius:24px}.button-neutral-solid:hover{background:var(--onboard-gray-700, var(--gray-700))}.button-neutral-solid-b:hover{background:var(--onboard-gray-200, var(--gray-200))}.button-neutral-solid:active{color:var(--onboard-gray-300, var(--gray-300))}.button-neutral-solid-b:active{color:var(--onboard-gray-600, var(--gray-600));background:var(--onboard-gray-300, var(--gray-300))}.container.svelte-1mvm68y{padding:16px;font-family:var(--onboard-font-family-normal, var(--font-family-normal));width:100%;pointer-events:none;touch-action:none}.z-indexed.svelte-1mvm68y{z-index:var(--account-center-z-index)}@media all and (min-width: 428px){.container.svelte-1mvm68y{max-width:348px}}</style>     ">
+  </onboard-v2>
+  <next-route-announcer>
+    <p aria-live="assertive" id="__next-route-announcer__" role="alert"
+      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap; overflow-wrap: normal;">
+    </p>
+  </next-route-announcer>
+  <script
+    data-scrapbook-elem="basic-loader">(function () { var k1 = "data-scrapbook-shadowdom", k2 = "data-scrapbook-canvas", k3 = "data-scrapbook-input-indeterminate", k4 = "data-scrapbook-input-checked", k5 = "data-scrapbook-option-selected", k6 = "data-scrapbook-input-value", k7 = "data-scrapbook-textarea-value", k8 = "data-scrapbook-adoptedstylesheets", k9 = /^data-scrapbook-adoptedstylesheet-(\d+)$/, k10 = "data-scrapbook-shadowdom-mode", k11 = "data-scrapbook-shadowdom-clonable", k12 = "data-scrapbook-shadowdom-delegates-focus", k13 = "data-scrapbook-shadowdom-serializable", k14 = "data-scrapbook-shadowdom-slot-assignment", k15 = "data-scrapbook-slot-assigned", k16 = "data-scrapbook-slot-index", k17 = /^scrapbook-slot-index=(\d+)$/; k18 = '/scrapbook-slot-index'; d = document, r = d.documentElement, $s = !!r.attachShadow, $as = !!d.adoptedStyleSheets, $c = !!window.HTMLCanvasElement, $sa = !!d.createElement('slot').assign, sle = [], sls = [], slt = function (r) { if ($sa) { var E = r.childNodes, i, e, s, m; for (i = 0; i < E.length; i++) { e = E[i]; if (e.nodeType === 8) { s = e.nodeValue; if (m = s.match(k17)) { s = e.nextSibling; if (s.nodeType === 3) { sls[m[1]] = s; } r.removeChild(e); i--; } else if (s === k18) { r.removeChild(e); i--; } } } } }, sl = function () { var i = sle.length, j, d, e; while (i--) { d = sle[i]; e = d.elem; d = d.value.split(','); j = d.length; while (j--) { d[j] = sls[parseInt(d[j], 10)]; } try { e.assign.apply(e, d); } catch (ex) { console.error(ex); } } }, asl = (function (r) { var l = [], E, i, e, m, c, j; if ($as) { E = r.attributes; i = E.length; while (i--) { e = E[i]; if (!(m = e.nodeName.match(k9))) { continue; } c = l[m[1]] = new CSSStyleSheet(); r.removeAttribute(m[0]); m = e.nodeValue.split('\n\n'); j = m.length; while (j--) { try { m[j] && c.insertRule(m[j]); } catch (ex) { console.error(ex); } } } } return l; })(r), as = function (d, e) { var l, i, I; if ($as && (l = e.getAttribute(k8)) !== null) { l = l.split(','); for (i = 0, I = l.length; i < I; i++) { d.adoptedStyleSheets.push(asl[l[i]]); } e.removeAttribute(k8); } }, fn = function (r) { var E = r.querySelectorAll ? r.querySelectorAll("*") : r.getElementsByTagName("*"), i = E.length, e, d, s, m; while (i--) { e = E[i]; s = e.shadowRoot; if ($s && (d = e.getAttribute(k1))) { if (!s) { try { s = e.attachShadow({ mode: (m = e.getAttribute(k10)) !== null ? m : 'open', clonable: e.hasAttribute(k11), delegatesFocus: e.hasAttribute(k12), serializable: e.hasAttribute(k13), slotAssignment: (m = e.getAttribute(k14)) !== null ? m : void (0), }); s.innerHTML = d; } catch (ex) { console.error(ex); } } e.removeAttribute(k1); e.removeAttribute(k10); e.removeAttribute(k11); e.removeAttribute(k12); e.removeAttribute(k13); e.removeAttribute(k14); } if ($c && (d = e.getAttribute(k2)) !== null) { (function () { var c = e, g = new Image(); g.onload = function () { c.getContext('2d').drawImage(g, 0, 0); }; g.src = d; })(); e.removeAttribute(k2); } if ((d = e.getAttribute(k3)) !== null) { e.indeterminate = true; e.removeAttribute(k3); } if ((d = e.getAttribute(k4)) !== null) { e.checked = d === 'true'; e.removeAttribute(k4); } if ((d = e.getAttribute(k5)) !== null) { e.selected = d === 'true'; e.removeAttribute(k5); } if ((d = e.getAttribute(k6)) !== null) { e.value = d; e.removeAttribute(k6); } if ((d = e.getAttribute(k7)) !== null) { e.value = d; e.removeAttribute(k7); } if ($sa && (d = e.getAttribute(k15)) !== null) { sle.push({ elem: e, value: d }); e.removeAttribute(k15); } if ($sa && (d = e.getAttribute(k16)) !== null) { sls[d] = e; e.removeAttribute(k16); } if (s) { slt(e); as(s, e); fn(s); } } }; as(d, r); fn(d); sl(); })()</script>
+</body>
+
+</html>
